@@ -12,26 +12,27 @@ public class Item {
     @Id
     private String id;
     @Field
-    private String itemName;
+    private String name;
     @Field
     private double price;
     @Field
-    private int totalQuantity;
+    private int total_quantity;
     @Field
-    private Date lastModified;
-    private Expiration[] expiredList;
+    private Date last_modified;
+    @Field
+    private Expiration[] expiration;
 
     public Item() {
 
     }
 
-    public Item(String id, String itemName, double price, int totalQuantity, Date lastModified, Expiration[] expiredList) {
+    public Item(String id, String name, double price, int total_quantity, Date last_modified, Expiration[] expiration) {
         this.id = id;
-        this.itemName = itemName;
+        this.name = name;
         this.price = price;
-        this.totalQuantity = totalQuantity;
-        this.lastModified = lastModified;
-        this.expiredList = expiredList;
+        this.total_quantity = total_quantity;
+        this.last_modified = last_modified;
+        this.expiration = expiration;
     }
 
     public String getId() {
@@ -43,11 +44,11 @@ public class Item {
     }
 
     public String getItemName() {
-        return itemName;
+        return name;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setItemName(String name) {
+        this.name = name;
     }
 
     public double getPrice() {
@@ -58,12 +59,12 @@ public class Item {
         this.price = price;
     }
 
-    public int getTotalQuantity() {
-        return totalQuantity;
+    public int getTotal_Quantity() {
+        return total_quantity;
     }
 
-    public void setTotalQuantity(int totalQuantity) {
-        this.totalQuantity = totalQuantity;
+    public void setTotal_Quantity(int total_quantity) {
+        this.total_quantity = total_quantity;
     }
 
 //	public Date getLastModified() {
@@ -76,9 +77,22 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Inventory [id=" + id + ", itemName=" + itemName + ", price=" + price + ", totalQuantity="
-                + totalQuantity + ", lastModified=" + lastModified + ", expiredList=" + expiredList + "]";
+        return "Inventory [id=" + id + ", name=" + name + ", price=" + price + ", total_quantity="
+                + total_quantity + ", last_modified=" + last_modified + ", expired_list=" + expiredToString() + "]";
         //Date was removed for now
     }
-
+    private String expiredToString(){
+        if (expiration == null)
+            return null;
+        String temp = "[";
+        for(int i = 0; i < expiration.length; i++){
+            temp += expiration[i];
+            if(i <= expiration.length-2){
+                temp += ",";
+            }else{
+                temp += "]";
+            }
+        }
+        return temp;
+    }
 }

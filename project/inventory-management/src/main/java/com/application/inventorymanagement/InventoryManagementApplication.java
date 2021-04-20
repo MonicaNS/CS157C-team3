@@ -37,20 +37,21 @@ public class InventoryManagementApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // TODO Auto-generated method stub
 
-        Expiration e1 = new Expiration(new Date(), 3);
-        Expiration[] eList ={e1};
-
-		Item item = new Item("1", "Banana", 1.0, 4, new Date(), eList );
-		Item item2 = new Item("2", "milk", 1.0, 3, new Date(), null );
-		Item item3 = new Item("3", "moreBanana", 1.0, 3, new Date(), null  );
+//        Expiration e1 = new Expiration(new Date(), 3);
+//        Expiration e2 = new Expiration(new Date(), 2);
+//        Expiration[] eList ={e1, e2};
+//
+//		Item item = new Item("1", "Banana", 1.0, 4, new Date(), eList );
+//		Item item2 = new Item("2", "milk", 1.0, 3, new Date(), null );
+//		Item item3 = new Item("3", "moreBanana", 1.0, 3, new Date(), null  );
 //
 //
-
-		itemRepository.save(item);
-		itemRepository.save(item2);
-		itemRepository.save(item3);
-
-		System.out.println("Customers save ");
+//
+//		itemRepository.save(item);
+//		itemRepository.save(item2);
+//		itemRepository.save(item3);
+//
+//		System.out.println("Customers save ");
 
         List <Item> i = itemRepository.findAll();
 
