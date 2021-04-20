@@ -1,5 +1,9 @@
 package com.application.inventorymanagement;
 
+import com.application.inventorymanagement.entity.Expiration;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 
@@ -7,12 +11,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.application.inventorymanagement.entity.Item;
 import com.application.inventorymanagement.repository.ItemRepository;
+
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
 public class InventoryManagementApplication implements CommandLineRunner {
 
-
+//    public static MongoClient mongoClient;
+//    public static MongoClientURI mongoClientURI;
+//    public static MongoDatabase database;
+//    public static MongoCollection collection;
     private ItemRepository itemRepository;
 
     @Autowired
@@ -28,11 +37,15 @@ public class InventoryManagementApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // TODO Auto-generated method stub
 
-		Item item = new Item("1", "Banana", 1.0, 3 );
-		Item item2 = new Item("2", "milk", 1.0, 3 );
-		Item item3 = new Item("3", "moreBanana", 1.0, 3 );
+        Expiration e1 = new Expiration(new Date(), 3);
+        Expiration[] eList ={e1};
+
+		Item item = new Item("1", "Banana", 1.0, 4, new Date(), eList );
+		Item item2 = new Item("2", "milk", 1.0, 3, new Date(), null );
+		Item item3 = new Item("3", "moreBanana", 1.0, 3, new Date(), null  );
 //
 //
+
 		itemRepository.save(item);
 		itemRepository.save(item2);
 		itemRepository.save(item3);

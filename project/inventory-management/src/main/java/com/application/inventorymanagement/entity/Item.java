@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.Date;
+
 @Document(collection = "item")
 public class Item {
 
@@ -15,19 +17,21 @@ public class Item {
     private double price;
     @Field
     private int totalQuantity;
-    //private Date lastModified;
+    @Field
+    private Date lastModified;
+    private Expiration[] expiredList;
 
     public Item() {
 
     }
 
-    public Item(String id, String itemName, double price, int totalQuantity) {
-        super();
+    public Item(String id, String itemName, double price, int totalQuantity, Date lastModified, Expiration[] expiredList) {
         this.id = id;
         this.itemName = itemName;
         this.price = price;
         this.totalQuantity = totalQuantity;
-        //this.lastModified = lastModified;
+        this.lastModified = lastModified;
+        this.expiredList = expiredList;
     }
 
     public String getId() {
@@ -73,10 +77,8 @@ public class Item {
     @Override
     public String toString() {
         return "Inventory [id=" + id + ", itemName=" + itemName + ", price=" + price + ", totalQuantity="
-                + totalQuantity + ", lastModified=" + "]";
+                + totalQuantity + ", lastModified=" + lastModified + ", expiredList=" + expiredList + "]";
         //Date was removed for now
     }
-
-
 
 }
