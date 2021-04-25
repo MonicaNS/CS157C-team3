@@ -29,25 +29,45 @@ public class Billing {
         this.order_list = order_list;
     }
 
-    public ObjectId getId() {        return id;    }
+    public ObjectId getId() {
+        return id;
+    }
 
-    public void setId(ObjectId id) {        this.id = id;    }
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 
-    public Date getOrder_date() {        return order_date;    }
+    public Date getOrder_date() {
+        return order_date;
+    }
 
-    public void setOrder_date(Date order_date) {        this.order_date = order_date;    }
+    public void setOrder_date(Date order_date) {
+        this.order_date = order_date;
+    }
 
-    public int getTotal_quantity() {        return total_quantity;    }
+    public int getTotal_quantity() {
+        return total_quantity;
+    }
 
-    public void setTotal_quantity(int total_quantity) {        this.total_quantity = total_quantity;    }
+    public void setTotal_quantity(int total_quantity) {
+        this.total_quantity = total_quantity;
+    }
 
-    public double getTotal_cost() {        return total_cost;    }
+    public double getTotal_cost() {
+        return total_cost;
+    }
 
-    public void setTotal_cost(double total_cost) {        this.total_cost = total_cost;    }
+    public void setTotal_cost(double total_cost) {
+        this.total_cost = total_cost;
+    }
 
-    public BillingItem[] getOrder_list() {        return order_list;    }
+    public BillingItem[] getOrder_list() {
+        return order_list;
+    }
 
-    public void setOrder_list(BillingItem[] order_list) {        this.order_list = order_list;    }
+    public void setOrder_list(BillingItem[] order_list) {
+        this.order_list = order_list;
+    }
 
     @Override
     public String toString() {

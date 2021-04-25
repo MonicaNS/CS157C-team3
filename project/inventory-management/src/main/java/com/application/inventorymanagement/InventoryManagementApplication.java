@@ -2,7 +2,9 @@ package com.application.inventorymanagement;
 
 import com.application.inventorymanagement.entity.Billing;
 import com.application.inventorymanagement.entity.Expiration;
+import com.application.inventorymanagement.entity.Receipt;
 import com.application.inventorymanagement.repository.BillingRepository;
+import com.application.inventorymanagement.repository.ReceiptRepository;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -26,11 +28,13 @@ public class InventoryManagementApplication implements CommandLineRunner {
 //    public static MongoCollection collection;
     private ItemRepository itemRepository;
     private BillingRepository billingRepository;
+    private ReceiptRepository receiptRepository;
 
     @Autowired
-    public InventoryManagementApplication(ItemRepository itemRepository, BillingRepository billingRepository){
+    public InventoryManagementApplication(ItemRepository itemRepository, BillingRepository billingRepository, ReceiptRepository receiptRepository){
         this.itemRepository = itemRepository;
         this.billingRepository = billingRepository;
+        this.receiptRepository = receiptRepository;
     }
 
     public static void main(String[] args) {
@@ -59,14 +63,20 @@ public class InventoryManagementApplication implements CommandLineRunner {
 
         List <Item> i = itemRepository.findAll();
 
-        for(Item items: i ) {
-            System.out.println(items);
+        for(Item item: i ) {
+            System.out.println(item);
         }
 
         List<Billing> b = billingRepository.findAll();
 
         for(Billing billing: b){
             System.out.println(billing);
+        }
+
+        List<Receipt> r = receiptRepository.findAll();
+
+        for(Receipt receipt : r){
+            System.out.println(receipt);
         }
 
 

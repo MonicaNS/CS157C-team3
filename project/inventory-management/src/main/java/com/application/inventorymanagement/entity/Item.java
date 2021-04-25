@@ -61,21 +61,37 @@ public class Item {
         this.total_quantity = total_quantity;
     }
 
-    public String getName() { return name;}
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name) {this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public int getTotal_quantity() { return total_quantity;}
+    public int getTotal_quantity() {
+        return total_quantity;
+    }
 
-    public void setTotal_quantity(int total_quantity) {        this.total_quantity = total_quantity;    }
+    public void setTotal_quantity(int total_quantity) {
+        this.total_quantity = total_quantity;
+    }
 
-    public Date getLast_modified() {        return last_modified;    }
+    public Date getLast_modified() {
+        return last_modified;
+    }
 
-    public void setLast_modified(Date last_modified) {        this.last_modified = last_modified;    }
+    public void setLast_modified(Date last_modified) {
+        this.last_modified = last_modified;
+    }
 
-    public Expiration[] getExpiration() {        return expiration;    }
+    public Expiration[] getExpiration() {
+        return expiration;
+    }
 
-    public void setExpiration(Expiration[] expiration) {        this.expiration = expiration;    }
+    public void setExpiration(Expiration[] expiration) {
+        this.expiration = expiration;
+    }
 
     @Override
     public String toString() {
