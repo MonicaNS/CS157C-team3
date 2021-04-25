@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 @Document(collection = "billing_log")
-public class Billing {
+public class BillingLog {
     @Id
     private ObjectId id;
     @Field
@@ -21,7 +21,7 @@ public class Billing {
     @Field
     private BillingItem[] order_list;
 
-    public Billing(ObjectId id, Date order_date, int total_quantity, double total_cost, BillingItem[] order_list) {
+    public BillingLog(ObjectId id, Date order_date, int total_quantity, double total_cost, BillingItem[] order_list) {
         this.id = id;
         this.order_date = order_date;
         this.total_quantity = total_quantity;

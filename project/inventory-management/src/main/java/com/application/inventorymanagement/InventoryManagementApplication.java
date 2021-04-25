@@ -1,22 +1,14 @@
 package com.application.inventorymanagement;
 
-import com.application.inventorymanagement.entity.Billing;
-import com.application.inventorymanagement.entity.Expiration;
-import com.application.inventorymanagement.entity.Receipt;
-import com.application.inventorymanagement.repository.BillingRepository;
-import com.application.inventorymanagement.repository.ReceiptRepository;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.application.inventorymanagement.entity.*;
+import com.application.inventorymanagement.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.application.inventorymanagement.entity.Item;
-import com.application.inventorymanagement.repository.ItemRepository;
 
-import java.util.Date;
+
 import java.util.List;
 
 @SpringBootApplication
@@ -27,14 +19,16 @@ public class InventoryManagementApplication implements CommandLineRunner {
 //    public static MongoDatabase database;
 //    public static MongoCollection collection;
     private ItemRepository itemRepository;
-    private BillingRepository billingRepository;
+    private BillingLogRepository billingLogRepository;
     private ReceiptRepository receiptRepository;
+    private AvailableToBuyRepository availableToBuyRepository;
 
     @Autowired
-    public InventoryManagementApplication(ItemRepository itemRepository, BillingRepository billingRepository, ReceiptRepository receiptRepository){
+    public InventoryManagementApplication(ItemRepository itemRepository, BillingLogRepository billingLogRepository, ReceiptRepository receiptRepository, AvailableToBuyRepository availableToBuyRepository){
         this.itemRepository = itemRepository;
-        this.billingRepository = billingRepository;
+        this.billingLogRepository = billingLogRepository;
         this.receiptRepository = receiptRepository;
+        this.availableToBuyRepository = availableToBuyRepository;
     }
 
     public static void main(String[] args) {
@@ -67,10 +61,10 @@ public class InventoryManagementApplication implements CommandLineRunner {
             System.out.println(item);
         }
 
-        List<Billing> b = billingRepository.findAll();
+        List<BillingLog> b = billingLogRepository.findAll();
 
-        for(Billing billing: b){
-            System.out.println(billing);
+        for(BillingLog billingLog: b){
+            System.out.println(billingLog);
         }
 
         List<Receipt> r = receiptRepository.findAll();
@@ -79,6 +73,11 @@ public class InventoryManagementApplication implements CommandLineRunner {
             System.out.println(receipt);
         }
 
+        List<AvailableToBuy> a = availableToBuyRepository.findAll();
+
+        for(AvailableToBuy availableToBuy : a){
+            System.out.println(availableToBuy);
+        }
 
     }
 }
