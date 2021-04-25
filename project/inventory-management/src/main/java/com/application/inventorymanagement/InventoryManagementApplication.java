@@ -1,6 +1,8 @@
 package com.application.inventorymanagement;
 
+import com.application.inventorymanagement.entity.Billing;
 import com.application.inventorymanagement.entity.Expiration;
+import com.application.inventorymanagement.repository.BillingRepository;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -23,10 +25,12 @@ public class InventoryManagementApplication implements CommandLineRunner {
 //    public static MongoDatabase database;
 //    public static MongoCollection collection;
     private ItemRepository itemRepository;
+    private BillingRepository billingRepository;
 
     @Autowired
-    public InventoryManagementApplication(ItemRepository itemRepository){
+    public InventoryManagementApplication(ItemRepository itemRepository, BillingRepository billingRepository){
         this.itemRepository = itemRepository;
+        this.billingRepository = billingRepository;
     }
 
     public static void main(String[] args) {
@@ -56,9 +60,14 @@ public class InventoryManagementApplication implements CommandLineRunner {
         List <Item> i = itemRepository.findAll();
 
         for(Item items: i ) {
-            System.out.println(items.toString());
+            System.out.println(items);
         }
 
+        List<Billing> b = billingRepository.findAll();
+
+        for(Billing billing: b){
+            System.out.println(billing);
+        }
 
 
     }

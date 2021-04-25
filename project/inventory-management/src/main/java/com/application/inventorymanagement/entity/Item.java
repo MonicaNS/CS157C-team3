@@ -1,16 +1,18 @@
 package com.application.inventorymanagement.entity;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @Document(collection = "item")
 public class Item {
 
     @Id
-    private String id;
+    private ObjectId id;
     @Field
     private String name;
     @Field
@@ -26,7 +28,7 @@ public class Item {
 
     }
 
-    public Item(String id, String name, double price, int total_quantity, Date last_modified, Expiration[] expiration) {
+    public Item(ObjectId id, String name, double price, int total_quantity, Date last_modified, Expiration[] expiration) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -35,20 +37,12 @@ public class Item {
         this.expiration = expiration;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
-    }
-
-    public String getItemName() {
-        return name;
-    }
-
-    public void setItemName(String name) {
-        this.name = name;
     }
 
     public double getPrice() {
@@ -67,32 +61,32 @@ public class Item {
         this.total_quantity = total_quantity;
     }
 
-//	public Date getLastModified() {
-//		return lastModified;
-//	}
-//
-//	public void setLastModified(Date lastModified) {
-//		this.lastModified = lastModified;
-//	}
+    public String getName() { return name;}
+
+    public void setName(String name) {this.name = name;}
+
+    public int getTotal_quantity() { return total_quantity;}
+
+    public void setTotal_quantity(int total_quantity) {        this.total_quantity = total_quantity;    }
+
+    public Date getLast_modified() {        return last_modified;    }
+
+    public void setLast_modified(Date last_modified) {        this.last_modified = last_modified;    }
+
+    public Expiration[] getExpiration() {        return expiration;    }
+
+    public void setExpiration(Expiration[] expiration) {        this.expiration = expiration;    }
 
     @Override
     public String toString() {
-        return "Inventory [id=" + id + ", name=" + name + ", price=" + price + ", total_quantity="
-                + total_quantity + ", last_modified=" + last_modified + ", expired_list=" + expiredToString() + "]";
-        //Date was removed for now
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", total_quantity=" + total_quantity +
+                ", last_modified=" + last_modified +
+                ", expiration=" + Arrays.toString(expiration) +
+                '}';
     }
-    private String expiredToString(){
-        if (expiration == null)
-            return null;
-        String temp = "[";
-        for(int i = 0; i < expiration.length; i++){
-            temp += expiration[i];
-            if(i <= expiration.length-2){
-                temp += ",";
-            }else{
-                temp += "]";
-            }
-        }
-        return temp;
-    }
+
 }
