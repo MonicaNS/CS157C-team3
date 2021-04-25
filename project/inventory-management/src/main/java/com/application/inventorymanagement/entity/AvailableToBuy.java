@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 
+import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
+
 @Document(collection="available_to_buy")
 public class AvailableToBuy {
     @Id
@@ -62,7 +64,7 @@ public class AvailableToBuy {
         return "AvailableToBuy{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", price=" + price +
+                ", price=" + moneyFormat.format(price) +
                 ", expiry_date=" + expiry_date +
                 '}';
     }

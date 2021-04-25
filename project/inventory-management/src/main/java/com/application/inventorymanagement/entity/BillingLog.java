@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.Arrays;
 import java.util.Date;
 
+import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
+
 @Document(collection = "billing_log")
 public class BillingLog {
     @Id
@@ -75,7 +77,7 @@ public class BillingLog {
                 "id=" + id +
                 ", order_date=" + order_date +
                 ", total_quantity=" + total_quantity +
-                ", total_cost=" + total_cost +
+                ", total_cost=" + moneyFormat.format(total_cost) +
                 ", order_list=" + Arrays.toString(order_list) +
                 '}';
     }

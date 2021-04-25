@@ -2,6 +2,8 @@ package com.application.inventorymanagement.entity;
 
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
+
 /**
  * Subclass for Billing, order_list
  */
@@ -48,7 +50,7 @@ public class BillingItem {
         return "BillingItem{" +
                 "name='" + name + '\'' +
                 ", quantity=" + quantity +
-                ", price=" + price +
+                ", price=" + moneyFormat.format(price) +
                 '}';
     }
 }

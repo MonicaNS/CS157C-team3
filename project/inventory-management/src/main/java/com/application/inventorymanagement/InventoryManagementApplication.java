@@ -9,7 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+import java.text.DecimalFormat;
 import java.util.List;
+
 
 @SpringBootApplication
 public class InventoryManagementApplication implements CommandLineRunner {
@@ -18,6 +20,13 @@ public class InventoryManagementApplication implements CommandLineRunner {
 //    public static MongoClientURI mongoClientURI;
 //    public static MongoDatabase database;
 //    public static MongoCollection collection;
+    /*
+    Consider having a separate class for this static variable.
+    This will format all prices to this money format if moneyFormat.format(#) is used.
+    Doesn't work on API calls
+     */
+    public static DecimalFormat moneyFormat = new DecimalFormat("$0.00");
+
     private ItemRepository itemRepository;
     private BillingLogRepository billingLogRepository;
     private ReceiptRepository receiptRepository;

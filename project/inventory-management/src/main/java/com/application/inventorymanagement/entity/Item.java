@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.Arrays;
 import java.util.Date;
 
+import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
+
 @Document(collection = "item")
 public class Item {
 
@@ -98,7 +100,7 @@ public class Item {
         return "Item{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", price=" + price +
+                ", price=" + moneyFormat.format(price) +
                 ", total_quantity=" + total_quantity +
                 ", last_modified=" + last_modified +
                 ", expiration=" + Arrays.toString(expiration) +

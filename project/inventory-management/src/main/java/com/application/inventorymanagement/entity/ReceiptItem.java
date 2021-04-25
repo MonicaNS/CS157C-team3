@@ -5,6 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 
+import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
+
 /**
  * Subclass for Receipt, item_list
  */
@@ -75,7 +77,7 @@ public class ReceiptItem {
                 ", item_name='" + item_name + '\'' +
                 ", expiration=" + expiration +
                 ", quantity=" + quantity +
-                ", price=" + price +
+                ", price=" + moneyFormat.format(price) +
                 '}';
     }
 }
