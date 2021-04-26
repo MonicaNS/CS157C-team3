@@ -31,13 +31,15 @@ public class InventoryManagementApplication implements CommandLineRunner {
     private BillingLogRepository billingLogRepository;
     private ReceiptRepository receiptRepository;
     private AvailableToBuyRepository availableToBuyRepository;
+    private NetIncomeRepository netIncomeRepository;
 
     @Autowired
-    public InventoryManagementApplication(ItemRepository itemRepository, BillingLogRepository billingLogRepository, ReceiptRepository receiptRepository, AvailableToBuyRepository availableToBuyRepository){
+    public InventoryManagementApplication(ItemRepository itemRepository, BillingLogRepository billingLogRepository, ReceiptRepository receiptRepository, AvailableToBuyRepository availableToBuyRepository, NetIncomeRepository netIncomeRepository){
         this.itemRepository = itemRepository;
         this.billingLogRepository = billingLogRepository;
         this.receiptRepository = receiptRepository;
         this.availableToBuyRepository = availableToBuyRepository;
+        this.netIncomeRepository = netIncomeRepository;
     }
 
     public static void main(String[] args) {
@@ -88,5 +90,12 @@ public class InventoryManagementApplication implements CommandLineRunner {
             System.out.println(availableToBuy);
         }
 
+        List<NetIncome> n = netIncomeRepository.findAll();
+
+        for(NetIncome netIncome : n){
+            System.out.println(netIncome);
+        }
+
+        System.out.println(availableToBuyRepository.findByName("banana"));
     }
 }

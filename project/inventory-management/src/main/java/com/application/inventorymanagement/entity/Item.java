@@ -26,10 +26,6 @@ public class Item {
     @Field
     private Expiration[] expiration;
 
-    public Item() {
-
-    }
-
     public Item(ObjectId id, String name, double price, int total_quantity, Date last_modified, Expiration[] expiration) {
         this.id = id;
         this.name = name;
