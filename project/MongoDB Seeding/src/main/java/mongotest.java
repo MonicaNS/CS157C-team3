@@ -24,119 +24,203 @@ public class mongotest {
         mongoClientURI = new MongoClientURI(uri);
         mongoClient = MongoClients.create(uri);
         database = mongoClient.getDatabase("inventory-management");
-        collection = database.getCollection("item");
+        collection = database.getCollection("available_to_buy");
 
-        Document item1 = new Document("name", "milk")
-                .append("price", 3.49)
-                .append("total quantity",60)
-                .append("lastModified", new Date())
-                .append("expiration", asList(   new Document("expiry date", new Date(2021, 4, 20)).append("quantity",20),
-                        new Document("expiry date", new Date(2021, 4, 25)).append("quantity",40)));
-        Document item2 = new Document("name", "banana")
-                .append("price", 2.49)
-                .append("total quantity", 42)
-                .append("lastModified", new Date())
-                .append("expiration", asList(   new Document("expiry date", new Date(2021, 4, 14)).append("quantity",10),
-                        new Document("expiry date", new Date(2021, 4, 16)).append("quantity",32)));
-        Document item3 = new Document("name","eggs")
-                .append("price", 2.68)
-                .append("total quantity", 10)
-                .append("lastModified", new Date())
-                .append("expiration", asList(   new Document("expiry date", new Date(2021, 4, 10)).append("quantity",10)));
-        Document item4 = new Document("name","chips")
-                .append("price", 3.64)
-                .append("total quantity", 20)
-                .append("lastModified", new Date());
-        Document item5 = new Document("name","cheese")
-                .append("price", 5.99)
-                .append("total quantity", 15)
-                .append("lastModified", new Date())
-                .append("expiration", asList(new Document("expiry date", new Date(2021, 6, 20)).append("quantity",15)));
-        Document item6 = new Document("name","wine")
-                .append("price", 10.99)
-                .append("total quantity", 6)
-                .append("lastModified", new Date());
-        Document item7 = new Document("name","soda")
-                .append("price", 3.99)
-                .append("total quantity", 17)
-                .append("lastModified", new Date())
-                .append("expiration", asList(new Document("expiry date", new Date(2022, 4, 4)).append("quantity",17)));
-        Document item8 = new Document("name","salsa")
-                .append("price", 2.99)
-                .append("total quantity", 8)
-                .append("lastModified", new Date())
-                .append("expiration", asList(new Document("expiry date", new Date(2021, 7, 8)).append("quantity",8)));
-        Document item9 = new Document("name","candy")
-                .append("price", 2.35)
-                .append("total quantity", 9)
-                .append("lastModified", new Date());
-        Document item10 = new Document("name","juice")
-                .append("price", 3.99)
-                .append("total quantity", 10)
-                .append("lastModified", new Date())
-                .append("expiration", asList(new Document("expiry date", new Date(2021, 6, 10)).append("quantity",10)));
+//        Document availableToBuy1 = new Document("name", "milk")
+//                .append("price", 0.20)
+//                .append("expiry_date", new Date(121, 5, 26));
+//        Document availableToBuy2 = new Document("name", "eggs")
+//                .append("price", 0.20)
+//                .append("expiry_date", new Date(121, 5, 25));
+//        Document availableToBuy3 = new Document("name", "chips")
+//                .append("price", 0.15)
+//                .append("expiry_date", null);
+//        Document availableToBuy4 = new Document("name", "cheese")
+//                .append("price", 0.40)
+//                .append("expiry_date", null);
+//        Document availableToBuy5 = new Document("name", "wine")
+//                .append("price", 3.00)
+//                .append("expiry_date", new Date(121, 7, 10));
+//        Document availableToBuy6 = new Document("name", "soda")
+//                .append("price", 0.40)
+//                .append("expiry_date", new Date(121, 6, 07));
+//        Document availableToBuy7 = new Document("name", "salsa")
+//                .append("price", 0.30)
+//                .append("expiry_date", new Date(121, 5, 29));
+//        Document availableToBuy8 = new Document("name", "candy")
+//                .append("price", 0.07)
+//                .append("expiry_date", null);
+//        Document availableToBuy9 = new Document("name", "juice")
+//                .append("price", 0.70)
+//                .append("expiry_date", new Date(121, 6, 14));
+//        Document availableToBuy10 = new Document("name", "strawberry juice")
+//                .append("price", 0.65)
+//                .append("expiry_date", new Date(121, 6, 14));
+        Document availableToBuy11 = new Document("name", "bread")
+                .append("price", 0.43)
+                .append("expiry_date", new Date(121, 5, 23));
+        Document availableToBuy12 = new Document("name", "apples")
+                .append("price", 0.10)
+                .append("expiry_date", new Date(121, 6, 01));
+        Document availableToBuy13 = new Document("name", "cucumbers")
+                .append("price", 0.12)
+                .append("expiry_date", new Date(121, 5, 22));
+        Document availableToBuy14 = new Document("name", "lettuce")
+                .append("price", 0.15)
+                .append("expiry_date", new Date(121, 6, 15));
+        Document availableToBuy15 = new Document("name", "potatoes")
+                .append("price", 0.11)
+                .append("expiry_date", new Date(121, 6, 12));
+        Document availableToBuy16 = new Document("name", "beer")
+                .append("price", 0.25)
+                .append("expiry_date", null);
+        Document availableToBuy17 = new Document("name", "tortillas")
+                .append("price", 0.28)
+                .append("expiry_date", new Date(121, 6, 01));
+        Document availableToBuy18 = new Document("name", "sour cream")
+                .append("price", 0.49)
+                .append("expiry_date", new Date(121, 6, 13));
+        Document availableToBuy19 = new Document("name", "cream chase")
+                .append("price", 0.27)
+                .append("expiry_date", new Date(121, 5, 24));
+        Document availableToBuy20 = new Document("name", "bagels")
+                .append("price", 0.35)
+                .append("expiry_date", new Date(121, 5, 27));
+
+
 
         List<Document> inventoryList = new ArrayList<>();
-        inventoryList.add(item1);
-        inventoryList.add(item2);
-        inventoryList.add(item3);
-        inventoryList.add(item4);
-        inventoryList.add(item5);
-        inventoryList.add(item6);
-        inventoryList.add(item7);
-        inventoryList.add(item8);
-        inventoryList.add(item9);
-        inventoryList.add(item10);
+        inventoryList.add(availableToBuy11);
+        inventoryList.add(availableToBuy12);
+        inventoryList.add(availableToBuy13);
+        inventoryList.add(availableToBuy14);
+        inventoryList.add(availableToBuy15);
+        inventoryList.add(availableToBuy16);
+        inventoryList.add(availableToBuy17);
+        inventoryList.add(availableToBuy18);
+        inventoryList.add(availableToBuy19);
+        inventoryList.add(availableToBuy20);
         collection.insertMany(inventoryList);
-        
+
         FindIterable<Document> iterDoc = collection.find();
         Iterator it = iterDoc.iterator();
         while(it.hasNext()){
             System.out.println(it.next());
         }
 
-        collection = database.getCollection("billing_log");
-        Document bill1 = new Document("order date", new Date(2021, 3, 29))
-                .append("total quantity", 72)
-                .append("total cost", 9.60)
-                .append("order_list", asList(new Document("name","milk").append("quantity",40).append("price", 0.20),
-                        new Document("name", "banana").append("quantity", 32).append("price",0.05)));
-        Document bill2 = new Document("order date", new Date(2021, 3, 28))
-                .append("total quantity", 10)
-                .append("total cost", 2.00)
-                .append("order_list", asList(new Document("name","eggs").append("quantity",10).append("price", 0.20)));
-        Document bill3 = new Document("order date", new Date(2021, 3, 27))
-                .append("total quantity", 35)
-                .append("total cost", 9.00)
-                .append("order_list", asList(new Document("name","chips").append("quantity",20).append("price", 0.15),
-                        new Document("name", "cheese").append("quantity", 15).append("price", 0.40)));
-        Document bill4 = new Document("order date", new Date(2021, 3, 26))
-                .append("total quantity", 23)
-                .append("total cost", 24.80)
-                .append("order_list", asList(new Document("name","wine").append("quantity",6).append("price", 3.00),
-                        new Document("name", "soda").append("quantity", 17).append("price", 0.40)));
-        Document bill5 = new Document("order date", new Date(2021, 3, 25))
-                .append("total quantity", 17)
-                .append("total cost", 3.03)
-                .append("order_list", asList(new Document("name","salsa").append("quantity",8).append("price", 0.30),
-                        new Document("name", "candy").append("quantity", 9).append("price", 0.07)));
-        Document bill6 = new Document("order date", new Date(2021, 3, 24))
-                .append("total quantity", 10)
-                .append("total cost", 1.20)
-                .append("order_list", asList(new Document("name","salsa").append("quantity",8).append("price", 0.15)));
-        List<Document> billList= new ArrayList<>();
-        billList.add(bill1);
-        billList.add(bill2);
-        billList.add(bill3);
-        billList.add(bill4);
-        billList.add(bill5);
-        billList.add(bill6);
-        collection.insertMany(billList);
+//        collection = database.getCollection("item");
 
-        iterDoc = collection.find();
-        it = iterDoc.iterator();
-        while(it.hasNext()){
-            System.out.println(it.next());
-        }
+//        Document item1 = new Document("name", "milk")
+//                .append("price", 3.49)
+//                .append("total quantity",60)
+//                .append("lastModified", new Date())
+//                .append("expiration", asList(   new Document("expiry date", new Date(2021, 4, 20)).append("quantity",20),
+//                        new Document("expiry date", new Date(2021, 4, 25)).append("quantity",40)));
+//        Document item2 = new Document("name", "banana")
+//                .append("price", 2.49)
+//                .append("total quantity", 42)
+//                .append("lastModified", new Date())
+//                .append("expiration", asList(   new Document("expiry date", new Date(2021, 4, 14)).append("quantity",10),
+//                        new Document("expiry date", new Date(2021, 4, 16)).append("quantity",32)));
+//        Document item3 = new Document("name","eggs")
+//                .append("price", 2.68)
+//                .append("total quantity", 10)
+//                .append("lastModified", new Date())
+//                .append("expiration", asList(   new Document("expiry date", new Date(2021, 4, 10)).append("quantity",10)));
+//        Document item4 = new Document("name","chips")
+//                .append("price", 3.64)
+//                .append("total quantity", 20)
+//                .append("lastModified", new Date());
+//        Document item5 = new Document("name","cheese")
+//                .append("price", 5.99)
+//                .append("total quantity", 15)
+//                .append("lastModified", new Date())
+//                .append("expiration", asList(new Document("expiry date", new Date(2021, 6, 20)).append("quantity",15)));
+//        Document item6 = new Document("name","wine")
+//                .append("price", 10.99)
+//                .append("total quantity", 6)
+//                .append("lastModified", new Date());
+//        Document item7 = new Document("name","soda")
+//                .append("price", 3.99)
+//                .append("total quantity", 17)
+//                .append("lastModified", new Date())
+//                .append("expiration", asList(new Document("expiry date", new Date(2022, 4, 4)).append("quantity",17)));
+//        Document item8 = new Document("name","salsa")
+//                .append("price", 2.99)
+//                .append("total quantity", 8)
+//                .append("lastModified", new Date())
+//                .append("expiration", asList(new Document("expiry date", new Date(2021, 7, 8)).append("quantity",8)));
+//        Document item9 = new Document("name","candy")
+//                .append("price", 2.35)
+//                .append("total quantity", 9)
+//                .append("lastModified", new Date());
+//        Document item10 = new Document("name","juice")
+//                .append("price", 3.99)
+//                .append("total quantity", 10)
+//                .append("lastModified", new Date())
+//                .append("expiration", asList(new Document("expiry date", new Date(2021, 6, 10)).append("quantity",10)));
+//
+//        List<Document> inventoryList = new ArrayList<>();
+//        inventoryList.add(item1);
+//        inventoryList.add(item2);
+//        inventoryList.add(item3);
+//        inventoryList.add(item4);
+//        inventoryList.add(item5);
+//        inventoryList.add(item6);
+//        inventoryList.add(item7);
+//        inventoryList.add(item8);
+//        inventoryList.add(item9);
+//        inventoryList.add(item10);
+//        collection.insertMany(inventoryList);
+//
+//        FindIterable<Document> iterDoc = collection.find();
+//        Iterator it = iterDoc.iterator();
+//        while(it.hasNext()){
+//            System.out.println(it.next());
+//        }
+//
+//        collection = database.getCollection("billing_log");
+//        Document bill1 = new Document("order date", new Date(2021, 3, 29))
+//                .append("total quantity", 72)
+//                .append("total cost", 9.60)
+//                .append("order_list", asList(new Document("name","milk").append("quantity",40).append("price", 0.20),
+//                        new Document("name", "banana").append("quantity", 32).append("price",0.05)));
+//        Document bill2 = new Document("order date", new Date(2021, 3, 28))
+//                .append("total quantity", 10)
+//                .append("total cost", 2.00)
+//                .append("order_list", asList(new Document("name","eggs").append("quantity",10).append("price", 0.20)));
+//        Document bill3 = new Document("order date", new Date(2021, 3, 27))
+//                .append("total quantity", 35)
+//                .append("total cost", 9.00)
+//                .append("order_list", asList(new Document("name","chips").append("quantity",20).append("price", 0.15),
+//                        new Document("name", "cheese").append("quantity", 15).append("price", 0.40)));
+//        Document bill4 = new Document("order date", new Date(2021, 3, 26))
+//                .append("total quantity", 23)
+//                .append("total cost", 24.80)
+//                .append("order_list", asList(new Document("name","wine").append("quantity",6).append("price", 3.00),
+//                        new Document("name", "soda").append("quantity", 17).append("price", 0.40)));
+//        Document bill5 = new Document("order date", new Date(2021, 3, 25))
+//                .append("total quantity", 17)
+//                .append("total cost", 3.03)
+//                .append("order_list", asList(new Document("name","salsa").append("quantity",8).append("price", 0.30),
+//                        new Document("name", "candy").append("quantity", 9).append("price", 0.07)));
+//        Document bill6 = new Document("order date", new Date(2021, 3, 24))
+//                .append("total quantity", 10)
+//                .append("total cost", 1.20)
+//                .append("order_list", asList(new Document("name","salsa").append("quantity",8).append("price", 0.15)));
+//        List<Document> billList= new ArrayList<>();
+//        billList.add(bill1);
+//        billList.add(bill2);
+//        billList.add(bill3);
+//        billList.add(bill4);
+//        billList.add(bill5);
+//        billList.add(bill6);
+//        collection.insertMany(billList);
+//
+//        iterDoc = collection.find();
+//        it = iterDoc.iterator();
+//        while(it.hasNext()){
+//            System.out.println(it.next());
+//        }
     }
 }
