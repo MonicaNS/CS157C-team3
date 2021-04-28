@@ -1,38 +1,50 @@
 package com.application.inventorymanagement.entity;
 
+import org.bson.types.ObjectId;
+
 import java.util.Date;
 import java.util.List;
 
 public class WholesalePurchase {
-    private Date orderDate;
-    private List<WholesaleItem> wholesaleItems;
+    private ObjectId id;
+    private Date order_date;
+    private List<WholesaleItem> wholesale_items;
 
-    public WholesalePurchase(Date orderDate, List<WholesaleItem> wholesaleItems) {
-        this.orderDate = orderDate;
-        this.wholesaleItems = wholesaleItems;
+    public WholesalePurchase(Date order_date, List<WholesaleItem> wholesale_items) {
+        this.id = new ObjectId();
+        this.order_date = order_date;
+        this.wholesale_items = wholesale_items;
     }
 
-    public Date getOrderDate() {
-        return orderDate;
+    public Date getOrder_date() {
+        return order_date;
     }
 
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
+    public void setOrder_date(Date order_date) {
+        this.order_date = order_date;
     }
 
-    public List<WholesaleItem> getWholesaleItems() {
-        return wholesaleItems;
+    public List<WholesaleItem> getWholesale_items() {
+        return wholesale_items;
     }
 
-    public void setWholesaleItems(List<WholesaleItem> wholesaleItems) {
-        this.wholesaleItems = wholesaleItems;
+    public void setWholesale_items(List<WholesaleItem> wholesale_items) {
+        this.wholesale_items = wholesale_items;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "WholesalePurchase{" +
-                "orderDate=" + orderDate +
-                ", wholesaleItems=" + wholesaleItems +
+                "orderDate=" + order_date +
+                ", wholesaleItems=" + wholesale_items +
                 '}';
     }
 }

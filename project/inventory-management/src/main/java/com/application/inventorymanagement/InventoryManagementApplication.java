@@ -53,9 +53,9 @@ public class InventoryManagementApplication implements CommandLineRunner {
     cannot make the variables static
      */
 
-    public ItemService itemService;
-    public BillingLogService billingLogService;
-    public AvailableToBuyService availableToBuyService;
+    public static ItemService itemService;
+    public static BillingLogService billingLogService;
+    public static AvailableToBuyService availableToBuyService;
 
     @Autowired
     public InventoryManagementApplication(ItemRepository itemRepository, BillingLogRepository billingLogRepository, AvailableToBuyRepository availableToBuyRepository) {

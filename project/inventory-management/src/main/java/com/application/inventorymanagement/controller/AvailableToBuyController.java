@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/availabletobuy")
+@RequestMapping("/wholesale")
 public class AvailableToBuyController {
 
 
@@ -28,10 +28,10 @@ public class AvailableToBuyController {
         return availableToBuyService.getAvailableToBuy();
     }
 
-//    @PostMapping("/buyWholesale")
-//    public WholesalePurchase buyWholesale(@RequestBody WholesalePurchase wholesalePurchase){
-//        return availableToBuyService.buyWholesale(wholesalePurchase);
-//    }
+    @PostMapping("/buy")
+    public WholesalePurchase buyWholesale(@RequestBody WholesalePurchase wholesalePurchase){
+        return availableToBuyService.buyWholesale(wholesalePurchase);
+    }
     /**
     Functions:
      request to buy
