@@ -18,9 +18,10 @@ import java.util.Optional;
 
 @Service
 public class AvailableToBuyService {
-    @Autowired
+
     private final AvailableToBuyRepository availableToBuyRepository;
 
+    @Autowired
     public AvailableToBuyService(AvailableToBuyRepository availableToBuyRepository) {
         this.availableToBuyRepository = availableToBuyRepository;
     }
@@ -29,25 +30,25 @@ public class AvailableToBuyService {
         return availableToBuyRepository.findAll();
     }
 
-    public WholesalePurchase buyWholesale(WholesalePurchase wholesalePurchase){
-        List<WholesaleItem> wholesaleItems = wholesalePurchase.getWholesaleItems();
-        ArrayList<BillingItem> billingItemArraylist = new ArrayList<BillingItem>();
-        for(WholesaleItem wholesaleItem : wholesaleItems){
-            BillingItem tempBI = new BillingItem(
-                    wholesaleItem.getName(),
-                    wholesaleItem.getQuantity(),
-                    wholesaleItem.getPrice());
-            billingItemArraylist.add(tempBI);
-
-        }
-        double totalPrice = 0;
-        int totalQuantity = 0;
-        for(BillingItem billingItem : billingItemArraylist){
-            totalPrice += billingItem.getPrice();
-            totalQuantity += billingItem.getQuantity();
-        }
-        new BillingLog(wholesalePurchase.getOrderDate(), totalQuantity, totalPrice, billingItemArraylist;
-
-    }
+//    public WholesalePurchase buyWholesale(WholesalePurchase wholesalePurchase){
+//        List<WholesaleItem> wholesaleItems = wholesalePurchase.getWholesaleItems();
+//        ArrayList<BillingItem> billingItemArraylist = new ArrayList<BillingItem>();
+//        for(WholesaleItem wholesaleItem : wholesaleItems){
+//            BillingItem tempBI = new BillingItem(
+//                    wholesaleItem.getName(),
+//                    wholesaleItem.getQuantity(),
+//                    wholesaleItem.getPrice());
+//            billingItemArraylist.add(tempBI);
+//
+//        }
+//        double totalPrice = 0;
+//        int totalQuantity = 0;
+//        for(BillingItem billingItem : billingItemArraylist){
+//            totalPrice += billingItem.getPrice();
+//            totalQuantity += billingItem.getQuantity();
+//        }
+//        new BillingLog(wholesalePurchase.getOrderDate(), totalQuantity, totalPrice, billingItemArraylist;
+//
+//    }
 
 }

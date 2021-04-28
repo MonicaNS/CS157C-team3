@@ -7,20 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/inventory")
 public class ItemController {
 
-    @Autowired
-    private static ItemService itemService;
 
-    @GetMapping("/getAllItems")
+    private ItemService itemService;
+
+    @Autowired
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
+
+    @GetMapping("/getAll")
     public List<Item> getItems(){
         return itemService.getItems();
     }
@@ -30,6 +33,10 @@ public class ItemController {
         return itemService.exists(name);
     }
 
+    @PostMapping("/create")
+    public Item save(@RequestBody Item item){
+        return itemService.save(item);
+    }
 
 //
 //    @PostMapping

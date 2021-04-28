@@ -24,12 +24,7 @@ public class BillingLog {
     @Field
     private List<BillingItem> order_list;
 
-    public BillingLog(Date order_date, int total_quantity, double total_cost, List<BillingItem> order_list) {
-        this.order_date = order_date;
-        this.total_quantity = total_quantity;
-        this.total_cost = total_cost;
-        this.order_list = order_list;
-    }
+
     public BillingLog(ObjectId id, Date order_date, int total_quantity, double total_cost, List<BillingItem> order_list) {
         this.id = id;
         this.order_date = order_date;

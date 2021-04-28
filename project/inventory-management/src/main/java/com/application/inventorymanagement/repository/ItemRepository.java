@@ -2,6 +2,7 @@ package com.application.inventorymanagement.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import com.application.inventorymanagement.entity.Item;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

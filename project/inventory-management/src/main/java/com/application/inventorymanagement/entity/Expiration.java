@@ -3,6 +3,7 @@ package com.application.inventorymanagement.entity;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Subclass for Item, Expiration array
@@ -42,6 +43,19 @@ public class Expiration {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Expiration that = (Expiration) o;
+        return quantity == that.quantity &&
+                expiry_date.equals(that.expiry_date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(expiry_date, quantity);
+    }
 //    @Override
 //    public String toString(){
 //        return "[expiry_date=" + expiry_date + ", quantity=" + quantity + "]";

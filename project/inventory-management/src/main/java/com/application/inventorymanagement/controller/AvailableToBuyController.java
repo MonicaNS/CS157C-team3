@@ -14,20 +14,24 @@ import java.util.List;
 @RequestMapping("/availabletobuy")
 public class AvailableToBuyController {
 
-    @Autowired
+
     private AvailableToBuyService availableToBuyService;
 
+    @Autowired
+    public AvailableToBuyController(AvailableToBuyService availableToBuyService) {
+        this.availableToBuyService = availableToBuyService;
+    }
 
     //1. Get all products
-    @GetMapping("/getAllAvailableToBuy")
+    @GetMapping("/getAll")
     public List<AvailableToBuy> getAvailableToBuy(){
         return availableToBuyService.getAvailableToBuy();
     }
 
-    @PostMapping("/buyWholesale")
-    public WholesalePurchase buyWholesale(@RequestBody WholesalePurchase wholesalePurchase){
-        return availableToBuyService.buyWholesale(wholesalePurchase);
-    }
+//    @PostMapping("/buyWholesale")
+//    public WholesalePurchase buyWholesale(@RequestBody WholesalePurchase wholesalePurchase){
+//        return availableToBuyService.buyWholesale(wholesalePurchase);
+//    }
     /**
     Functions:
      request to buy

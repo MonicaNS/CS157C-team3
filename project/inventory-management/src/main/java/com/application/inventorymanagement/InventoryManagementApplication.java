@@ -1,7 +1,10 @@
 package com.application.inventorymanagement;
 
+import com.application.inventorymanagement.controller.*;
 import com.application.inventorymanagement.entity.*;
 import com.application.inventorymanagement.repository.*;
+import com.application.inventorymanagement.service.*;
+import org.bson.types.ObjectId;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 
@@ -10,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -27,20 +32,32 @@ public class InventoryManagementApplication implements CommandLineRunner {
      */
     public static DecimalFormat moneyFormat = new DecimalFormat("$0.00");
 
-    private ItemRepository itemRepository;
+//    private ItemRepository itemRepository;
     private BillingLogRepository billingLogRepository;
-    private ReceiptRepository receiptRepository;
-    private AvailableToBuyRepository availableToBuyRepository;
-    private NetIncomeRepository netIncomeRepository;
+//    private ReceiptRepository receiptRepository;
+//    private AvailableToBuyRepository availableToBuyRepository;
+//    private NetIncomeRepository netIncomeRepository;
+
+//    @Autowired
+//    public InventoryManagementApplication(ItemRepository itemRepository, BillingLogRepository billingLogRepository, ReceiptRepository receiptRepository, AvailableToBuyRepository availableToBuyRepository, NetIncomeRepository netIncomeRepository){
+//        this.itemRepository = itemRepository;
+//        this.billingLogRepository = billingLogRepository;
+//        this.receiptRepository = receiptRepository;
+//        this.availableToBuyRepository = availableToBuyRepository;
+//        this.netIncomeRepository = netIncomeRepository;
+//    }
+
+    private ItemService itemService;
+    private BillingLogService billingLogService;
+    private AvailableToBuyService availableToBuyService;
 
     @Autowired
-    public InventoryManagementApplication(ItemRepository itemRepository, BillingLogRepository billingLogRepository, ReceiptRepository receiptRepository, AvailableToBuyRepository availableToBuyRepository, NetIncomeRepository netIncomeRepository){
-        this.itemRepository = itemRepository;
-        this.billingLogRepository = billingLogRepository;
-        this.receiptRepository = receiptRepository;
-        this.availableToBuyRepository = availableToBuyRepository;
-        this.netIncomeRepository = netIncomeRepository;
+    public InventoryManagementApplication(ItemRepository itemRepository, BillingLogRepository billingLogRepository, AvailableToBuyRepository availableToBuyRepository) {
+        this.itemService = new ItemService(itemRepository);
+        this.billingLogService = new BillingLogService(billingLogRepository);
+        this.availableToBuyService = new AvailableToBuyService(availableToBuyRepository);
     }
+
 
     public static void main(String[] args) {
         SpringApplication.run(InventoryManagementApplication.class, args);
@@ -49,6 +66,15 @@ public class InventoryManagementApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // TODO Auto-generated method stub
+        Expiration tempE = new Expiration(new Date(121, 5, 1), 3);
+        List<Expiration> e = new ArrayList<Expiration>();
+        e.add(tempE);
+        Item temp = new Item(new ObjectId(), "strawberry juice", 4.25, 3, new Date(),e);
+        itemService.save(temp);
+
+//        System.out.println(itemService.getItems());
+//        System.out.println(billingLogService.getBillingLogs());
+//        System.out.println(availableToBuyService.getAvailableToBuy());
 
 //        Expiration e1 = new Expiration(new Date(), 3);
 //        Expiration e2 = new Expiration(new Date(), 2);
@@ -66,36 +92,36 @@ public class InventoryManagementApplication implements CommandLineRunner {
 //
 //		System.out.println("Customers save ");
 
-        List <Item> i = itemRepository.findAll();
-
-        for(Item item: i ) {
-            System.out.println(item);
-        }
-
-        List<BillingLog> b = billingLogRepository.findAll();
-
-        for(BillingLog billingLog: b){
-            System.out.println(billingLog);
-        }
-
-        List<Receipt> r = receiptRepository.findAll();
-
-        for(Receipt receipt : r){
-            System.out.println(receipt);
-        }
-
-        List<AvailableToBuy> a = availableToBuyRepository.findAll();
-
-        for(AvailableToBuy availableToBuy : a){
-            System.out.println(availableToBuy);
-        }
-
-        List<NetIncome> n = netIncomeRepository.findAll();
-
-        for(NetIncome netIncome : n){
-            System.out.println(netIncome);
-        }
-
-        System.out.println(availableToBuyRepository.findByName("banana"));
+//        List <Item> i = itemRepository.findAll();
+//
+//        for(Item item: i ) {
+//            System.out.println(item);
+//        }
+//
+//        List<BillingLog> b = billingLogRepository.findAll();
+//
+//        for(BillingLog billingLog: b){
+//            System.out.println(billingLog);
+//        }
+//
+//        List<Receipt> r = receiptRepository.findAll();
+//
+//        for(Receipt receipt : r){
+//            System.out.println(receipt);
+//        }
+//
+//        List<AvailableToBuy> a = availableToBuyRepository.findAll();
+//
+//        for(AvailableToBuy availableToBuy : a){
+//            System.out.println(availableToBuy);
+//        }
+//
+//        List<NetIncome> n = netIncomeRepository.findAll();
+//
+//        for(NetIncome netIncome : n){
+//            System.out.println(netIncome);
+//        }
+//
+//        System.out.println(availableToBuyRepository.findByName("banana"));
     }
 }
