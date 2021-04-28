@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
 
@@ -24,9 +25,9 @@ public class Item {
     @Field
     private Date last_modified;
     @Field
-    private Expiration[] expiration;
+    private List<Expiration> expiration;
 
-    public Item(ObjectId id, String name, double price, int total_quantity, Date last_modified, Expiration[] expiration) {
+    public Item(ObjectId id, String name, double price, int total_quantity, Date last_modified, List<Expiration> expiration) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -83,11 +84,11 @@ public class Item {
         this.last_modified = last_modified;
     }
 
-    public Expiration[] getExpiration() {
+    public List<Expiration> getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(Expiration[] expiration) {
+    public void setExpiration(List<Expiration> expiration) {
         this.expiration = expiration;
     }
 
@@ -99,7 +100,7 @@ public class Item {
                 ", price=" + moneyFormat.format(price) +
                 ", total_quantity=" + total_quantity +
                 ", last_modified=" + last_modified +
-                ", expiration=" + Arrays.toString(expiration) +
+                ", expiration=" + expiration +
                 '}';
     }
 

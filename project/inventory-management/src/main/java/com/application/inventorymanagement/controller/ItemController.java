@@ -2,6 +2,7 @@ package com.application.inventorymanagement.controller;
 
 import com.application.inventorymanagement.entity.Item;
 import com.application.inventorymanagement.repository.ItemRepository;
+import com.application.inventorymanagement.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,22 +16,18 @@ import java.util.List;
 
 @RestController
 public class ItemController {
-    private final ItemRepository itemRepository;
 
     @Autowired
-    public ItemController(ItemRepository itemRepository){
-        this.itemRepository = itemRepository;
-    }
+    private static ItemService itemService;
 
     @GetMapping("/getAllItems")
     public List<Item> getItems(){
-        return itemRepository.findAll();
+        return itemService.getItems();
     }
 
-    @GetMapping("/getAllItemsPage")
-    public Page<Item> getItemsPage() {
-        Pageable p = PageRequest.of(0, Integer.MAX_VALUE);
-        return itemRepository.findAll(p);
+    @GetMapping("/exists")
+    public boolean exists(String name){
+        return itemService.exists(name);
     }
 
 

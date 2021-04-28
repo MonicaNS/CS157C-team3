@@ -1,38 +1,32 @@
 package com.application.inventorymanagement.controller;
 
 import com.application.inventorymanagement.entity.AvailableToBuy;
-import com.application.inventorymanagement.entity.Item;
-import com.application.inventorymanagement.repository.AvailableToBuyRepository;
+import com.application.inventorymanagement.entity.WholesalePurchase;
+import com.application.inventorymanagement.service.AvailableToBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.MessageHandler;
 import java.util.Date;
 import java.util.List;
 
 @RestController
+@RequestMapping("/availabletobuy")
 public class AvailableToBuyController {
-    private final AvailableToBuyRepository availableToBuyRepository;
 
     @Autowired
-    public AvailableToBuyController(AvailableToBuyRepository availableToBuyRepository) {
-        this.availableToBuyRepository = availableToBuyRepository;
-    }
+    private AvailableToBuyService availableToBuyService;
 
+
+    //1. Get all products
     @GetMapping("/getAllAvailableToBuy")
     public List<AvailableToBuy> getAvailableToBuy(){
-        return availableToBuyRepository.findAll();
+        return availableToBuyService.getAvailableToBuy();
     }
 
-    @GetMapping("/getAllAvailableToBuyPage")
-    public Page<AvailableToBuy> getAvailableToBuyPage() {
-        Pageable p = PageRequest.of(0, Integer.MAX_VALUE);
-        return availableToBuyRepository.findAll(p);
+    @PostMapping("/buyWholesale")
+    public WholesalePurchase buyWholesale(@RequestBody WholesalePurchase wholesalePurchase){
+        return availableToBuyService.buyWholesale(wholesalePurchase);
     }
     /**
     Functions:
@@ -45,13 +39,25 @@ public class AvailableToBuyController {
     The information would be sent to both ItemController and BillingLogController to create Items
     and BillingLogs, and saves to the database.
      */
+        /*
+        List<T>
+        T: {name, quantity}, order date
+        for{
+            new Item: name, quantity, expiration
+            AvailableToBuy obj  =call getavailablebyname
+            if name doesn't exist in Item
+                create new item (obj.getName(), ,
+            else
+
+            Billing Log: {name, quantity, price}, order date
+        }
+         */
 
 
 
 
-
-    @GetMapping
-    public AvailableToBuy getAvailableByName(String name){
-        return this.availableToBuyRepository.findByName(name);
-    }
+//    @GetMapping
+//    public AvailableToBuy getAvailableByName(String name){
+//        return this.availableToBuyRepository.findByName(name);
+//    }
 }

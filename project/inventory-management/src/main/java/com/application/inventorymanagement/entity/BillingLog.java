@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
 
@@ -21,9 +22,15 @@ public class BillingLog {
     @Field
     private double total_cost;
     @Field
-    private BillingItem[] order_list;
+    private List<BillingItem> order_list;
 
-    public BillingLog(ObjectId id, Date order_date, int total_quantity, double total_cost, BillingItem[] order_list) {
+    public BillingLog(Date order_date, int total_quantity, double total_cost, List<BillingItem> order_list) {
+        this.order_date = order_date;
+        this.total_quantity = total_quantity;
+        this.total_cost = total_cost;
+        this.order_list = order_list;
+    }
+    public BillingLog(ObjectId id, Date order_date, int total_quantity, double total_cost, List<BillingItem> order_list) {
         this.id = id;
         this.order_date = order_date;
         this.total_quantity = total_quantity;
@@ -63,11 +70,11 @@ public class BillingLog {
         this.total_cost = total_cost;
     }
 
-    public BillingItem[] getOrder_list() {
+    public List<BillingItem> getOrder_list() {
         return order_list;
     }
 
-    public void setOrder_list(BillingItem[] order_list) {
+    public void setOrder_list(List<BillingItem> order_list) {
         this.order_list = order_list;
     }
 
@@ -78,7 +85,7 @@ public class BillingLog {
                 ", order_date=" + order_date +
                 ", total_quantity=" + total_quantity +
                 ", total_cost=" + moneyFormat.format(total_cost) +
-                ", order_list=" + Arrays.toString(order_list) +
+                ", order_list=" + order_list +
                 '}';
     }
 }
