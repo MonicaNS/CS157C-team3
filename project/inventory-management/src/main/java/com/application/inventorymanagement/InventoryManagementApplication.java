@@ -56,15 +56,21 @@ public class InventoryManagementApplication implements CommandLineRunner {
     public static ItemService itemService;
     public static BillingLogService billingLogService;
     public static AvailableToBuyService availableToBuyService;
-
+    public static RevenueService revenueService;
     @Autowired
-    public InventoryManagementApplication(ItemRepository itemRepository, BillingLogRepository billingLogRepository, AvailableToBuyRepository availableToBuyRepository) {
+    public InventoryManagementApplication(ItemRepository itemRepository,
+                                          BillingLogRepository billingLogRepository,
+                                          AvailableToBuyRepository availableToBuyRepository,
+                                          RevenueRepository revenueRepository) {
         this.itemService = new ItemService(itemRepository);
         this.billingLogService = new BillingLogService(billingLogRepository);
         this.availableToBuyService = new AvailableToBuyService(availableToBuyRepository);
+        this.revenueService = new RevenueService(revenueRepository);
     }
 
-
+/*
+start of application dump, expired and note it in revenue
+ */
     public static void main(String[] args) {
         SpringApplication.run(InventoryManagementApplication.class, args);
     }
@@ -72,6 +78,12 @@ public class InventoryManagementApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // TODO Auto-generated method stub
+//        Item tempI = itemService.getItemByName("banana").get(0);
+//        RevenueItem ri = new RevenueItem(tempI.getId(), tempI.getName(), tempI.getExpiration().get(0).getExpiry_date(), 5, tempI.getPrice());
+//        ArrayList<RevenueItem> riList = new ArrayList<RevenueItem>();
+//        riList.add(ri);
+//        Revenue r = new Revenue(new ObjectId(), new Date(), 5, tempI.getPrice() * 5, RevenueType.RECEIPT, riList);
+//        System.out.println(revenueService.getRevenue());
 //        Expiration tempE = new Expiration(new Date(121, 5, 1), 3);
 //        List<Expiration> e = new ArrayList<Expiration>();
 //        e.add(tempE);

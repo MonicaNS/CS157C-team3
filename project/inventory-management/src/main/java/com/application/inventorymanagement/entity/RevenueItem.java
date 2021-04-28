@@ -10,7 +10,7 @@ import static com.application.inventorymanagement.InventoryManagementApplication
 /**
  * Subclass for Receipt, item_list
  */
-public class ReceiptItem {
+public class RevenueItem {
     @Field
     private ObjectId item_id;
     @Field
@@ -22,7 +22,7 @@ public class ReceiptItem {
     @Field
     private double price;
 
-    public ReceiptItem(ObjectId item_id, String item_name, Date expiration, int quantity, double price) {
+    public RevenueItem(ObjectId item_id, String item_name, Date expiration, int quantity, double price) {
         this.item_id = item_id;
         this.item_name = item_name;
         this.expiration = expiration;

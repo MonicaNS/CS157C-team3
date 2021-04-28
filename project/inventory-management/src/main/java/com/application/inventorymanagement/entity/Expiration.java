@@ -10,9 +10,9 @@ import java.util.Objects;
  */
 public class Expiration {
     @Field
-    public Date expiry_date;
+    private Date expiry_date;
     @Field
-    public int quantity;
+    private int quantity;
 
     public Expiration(Date expiry_date, int quantity) {
         this.expiry_date = expiry_date;

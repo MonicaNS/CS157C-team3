@@ -26,48 +26,80 @@ public class mongotest {
         database = mongoClient.getDatabase("inventory-management");
         collection = database.getCollection("available_to_buy");
 
-        Document availableToBuy1 = new Document("name", "milk")
-                .append("price", 0.20)
-                .append("expiry_date", new Date(121, 5, 17));
-        Document availableToBuy2 = new Document("name", "eggs")
-                .append("price", 0.20)
-                .append("expiry_date", new Date(121, 5, 25));
-        Document availableToBuy3 = new Document("name", "chips")
+//        Document availableToBuy1 = new Document("name", "milk")
+//                .append("price", 0.20)
+//                .append("expiry_date", new Date(121, 5, 26));
+//        Document availableToBuy2 = new Document("name", "eggs")
+//                .append("price", 0.20)
+//                .append("expiry_date", new Date(121, 5, 25));
+//        Document availableToBuy3 = new Document("name", "chips")
+//                .append("price", 0.15)
+//                .append("expiry_date", null);
+//        Document availableToBuy4 = new Document("name", "cheese")
+//                .append("price", 0.40)
+//                .append("expiry_date", null);
+//        Document availableToBuy5 = new Document("name", "wine")
+//                .append("price", 3.00)
+//                .append("expiry_date", new Date(121, 7, 10));
+//        Document availableToBuy6 = new Document("name", "soda")
+//                .append("price", 0.40)
+//                .append("expiry_date", new Date(121, 6, 07));
+//        Document availableToBuy7 = new Document("name", "salsa")
+//                .append("price", 0.30)
+//                .append("expiry_date", new Date(121, 5, 29));
+//        Document availableToBuy8 = new Document("name", "candy")
+//                .append("price", 0.07)
+//                .append("expiry_date", null);
+//        Document availableToBuy9 = new Document("name", "juice")
+//                .append("price", 0.70)
+//                .append("expiry_date", new Date(121, 6, 14));
+//        Document availableToBuy10 = new Document("name", "strawberry juice")
+//                .append("price", 0.65)
+//                .append("expiry_date", new Date(121, 6, 14));
+        Document availableToBuy11 = new Document("name", "bread")
+                .append("price", 0.43)
+                .append("expiry_date", new Date(121, 5, 23));
+        Document availableToBuy12 = new Document("name", "apples")
+                .append("price", 0.10)
+                .append("expiry_date", new Date(121, 6, 01));
+        Document availableToBuy13 = new Document("name", "cucumbers")
+                .append("price", 0.12)
+                .append("expiry_date", new Date(121, 5, 22));
+        Document availableToBuy14 = new Document("name", "lettuce")
                 .append("price", 0.15)
+                .append("expiry_date", new Date(121, 6, 15));
+        Document availableToBuy15 = new Document("name", "potatoes")
+                .append("price", 0.11)
+                .append("expiry_date", new Date(121, 6, 12));
+        Document availableToBuy16 = new Document("name", "beer")
+                .append("price", 0.25)
                 .append("expiry_date", null);
-        Document availableToBuy4 = new Document("name", "cheese")
-                .append("price", 0.40)
-                .append("expiry_date", null);
-        Document availableToBuy5 = new Document("name", "wine")
-                .append("price", 3.00)
-                .append("expiry_date", new Date(121, 7, 10));
-        Document availableToBuy6 = new Document("name", "soda")
-                .append("price", 0.40)
-                .append("expiry_date", new Date(121, 6, 07));
-        Document availableToBuy7 = new Document("name", "salsa")
-                .append("price", 0.30)
-                .append("expiry_date", new Date(121, 5, 29));
-        Document availableToBuy8 = new Document("name", "candy")
-                .append("price", 0.07)
-                .append("expiry_date", null);
-        Document availableToBuy9 = new Document("name", "juice")
-                .append("price", 0.70)
-                .append("expiry_date", new Date(121, 6, 14));
-        Document availableToBuy10 = new Document("name", "strawberry juice")
-                .append("price", 0.65)
-                .append("expiry_date", new Date(121, 6, 14));
+        Document availableToBuy17 = new Document("name", "tortillas")
+                .append("price", 0.28)
+                .append("expiry_date", new Date(121, 6, 01));
+        Document availableToBuy18 = new Document("name", "sour cream")
+                .append("price", 0.49)
+                .append("expiry_date", new Date(121, 6, 13));
+        Document availableToBuy19 = new Document("name", "cream chase")
+                .append("price", 0.27)
+                .append("expiry_date", new Date(121, 5, 24));
+        Document availableToBuy20 = new Document("name", "bagels")
+                .append("price", 0.35)
+                .append("expiry_date", new Date(121, 5, 27));
+
+
 
         List<Document> inventoryList = new ArrayList<>();
-        inventoryList.add(availableToBuy1);
-        inventoryList.add(availableToBuy2);
-        inventoryList.add(availableToBuy3);
-        inventoryList.add(availableToBuy4);
-        inventoryList.add(availableToBuy5);
-        inventoryList.add(availableToBuy6);
-        inventoryList.add(availableToBuy7);
-        inventoryList.add(availableToBuy8);
-        inventoryList.add(availableToBuy9);
-        inventoryList.add(availableToBuy10);
+        inventoryList.add(availableToBuy11);
+        inventoryList.add(availableToBuy12);
+        inventoryList.add(availableToBuy13);
+        inventoryList.add(availableToBuy14);
+        inventoryList.add(availableToBuy15);
+        inventoryList.add(availableToBuy16);
+        inventoryList.add(availableToBuy17);
+        inventoryList.add(availableToBuy18);
+        inventoryList.add(availableToBuy19);
+        inventoryList.add(availableToBuy20);
         collection.insertMany(inventoryList);
 
         FindIterable<Document> iterDoc = collection.find();

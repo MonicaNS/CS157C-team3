@@ -7,11 +7,10 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
-import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
-
-@Document(collection = "receipt")
-public class Receipt {
+@Document(collection = "revenue")
+public class Revenue {
     @Id
     private ObjectId id;
     @Field
@@ -21,13 +20,16 @@ public class Receipt {
     @Field
     private double total_cost;
     @Field
-    private ReceiptItem[] item_list;
+    private RevenueType doc_type;        //types that
+    @Field
+    private List<RevenueItem> item_list;
 
-    public Receipt(ObjectId id, Date date, int item_count, double total_cost, ReceiptItem[] item_list) {
+    public Revenue(ObjectId id, Date date, int item_count, double total_cost, RevenueType doc_type, List<RevenueItem> item_list) {
         this.id = id;
         this.date = date;
         this.item_count = item_count;
         this.total_cost = total_cost;
+        this.doc_type = doc_type;
         this.item_list = item_list;
     }
 
@@ -63,22 +65,32 @@ public class Receipt {
         this.total_cost = total_cost;
     }
 
-    public ReceiptItem[] getItem_list() {
+    public RevenueType getDoc_type() {
+        return doc_type;
+    }
+
+    public void setDoc_type(RevenueType doc_type) {
+        this.doc_type = doc_type;
+    }
+
+    public List<RevenueItem> getItem_list() {
         return item_list;
     }
 
-    public void setItem_list(ReceiptItem[] item_list) {
+    public void setItem_list(List<RevenueItem> item_list) {
         this.item_list = item_list;
     }
 
     @Override
     public String toString() {
-        return "Receipt{" +
+        return "Revenue{" +
                 "id=" + id +
                 ", date=" + date +
                 ", item_count=" + item_count +
-                ", total_cost=" + moneyFormat.format(total_cost) +
-                ", item_list=" + Arrays.toString(item_list) +
+                ", total_cost=" + total_cost +
+                ", doc_type='" + doc_type + '\'' +
+                ", item_list=" + item_list +
                 '}';
     }
 }
+
