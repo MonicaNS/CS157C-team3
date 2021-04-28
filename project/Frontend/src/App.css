@@ -133,3 +133,9 @@
   color: grey;
   padding-right: 4em;
 }
+
+.restock-inventory{
+  background-color: #979d973c;
+  height: 95vh;
+  margin-left: 15em;
+}
