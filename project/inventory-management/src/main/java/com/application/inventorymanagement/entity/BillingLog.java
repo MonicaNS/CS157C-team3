@@ -73,6 +73,24 @@ public class BillingLog {
         this.order_list = order_list;
     }
 
+    public double calculateCost(){
+        double temp = 0;
+        for(BillingItem bi : order_list){
+            temp += bi.getPrice() * bi.getQuantity();
+        }
+        total_cost = temp;
+        return temp;
+    }
+
+    public int calculateQuantity(){
+        int temp = 0;
+        for(BillingItem bi : order_list){
+            temp += bi.getQuantity();
+        }
+        total_quantity = temp;
+        return temp;
+    }
+
     @Override
     public String toString() {
         return "Billing{" +

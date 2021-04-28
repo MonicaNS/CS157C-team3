@@ -33,7 +33,7 @@ public class ItemController {
         return itemService.exists(name);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/save")
     public Item save(@RequestBody Item item){
         return itemService.save(item);
     }

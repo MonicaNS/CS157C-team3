@@ -6,6 +6,7 @@ import com.application.inventorymanagement.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,6 +48,11 @@ public class ItemService {
     }
 
     public Iterable<Item> save(List<Item> items){
-        return itemRepository.saveAll(items);
+        List<Item> itemList = new ArrayList<Item>();
+        for(Item i : items){
+            itemList.add(save(i));
+        }
+        return itemList;
+        //itemRepository.saveAll(items)
     }
 }

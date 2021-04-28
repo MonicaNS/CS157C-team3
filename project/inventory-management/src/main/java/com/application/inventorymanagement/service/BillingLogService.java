@@ -1,5 +1,6 @@
 package com.application.inventorymanagement.service;
 
+import com.application.inventorymanagement.entity.BillingItem;
 import com.application.inventorymanagement.entity.BillingLog;
 import com.application.inventorymanagement.entity.Item;
 import com.application.inventorymanagement.repository.BillingLogRepository;
@@ -24,6 +25,9 @@ public class BillingLogService {
     }
 
     public BillingLog save(BillingLog billingLog){
+        //verifies the order totals by separately calculating cost and quantity
+        billingLog.calculateCost();
+        billingLog.calculateQuantity();
         return billingLogRepository.save(billingLog);
     }
 

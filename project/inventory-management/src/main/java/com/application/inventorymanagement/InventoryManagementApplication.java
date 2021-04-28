@@ -47,9 +47,15 @@ public class InventoryManagementApplication implements CommandLineRunner {
 //        this.netIncomeRepository = netIncomeRepository;
 //    }
 
-    private ItemService itemService;
-    private BillingLogService billingLogService;
-    private AvailableToBuyService availableToBuyService;
+
+    /*
+    cannot access this without initializing InvMgmtApp, which is not a good idea
+    cannot make the variables static
+     */
+
+    public ItemService itemService;
+    public BillingLogService billingLogService;
+    public AvailableToBuyService availableToBuyService;
 
     @Autowired
     public InventoryManagementApplication(ItemRepository itemRepository, BillingLogRepository billingLogRepository, AvailableToBuyRepository availableToBuyRepository) {
@@ -66,11 +72,11 @@ public class InventoryManagementApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // TODO Auto-generated method stub
-        Expiration tempE = new Expiration(new Date(121, 5, 1), 3);
-        List<Expiration> e = new ArrayList<Expiration>();
-        e.add(tempE);
-        Item temp = new Item(new ObjectId(), "strawberry juice", 4.25, 3, new Date(),e);
-        itemService.save(temp);
+//        Expiration tempE = new Expiration(new Date(121, 5, 1), 3);
+//        List<Expiration> e = new ArrayList<Expiration>();
+//        e.add(tempE);
+//        Item temp = new Item(new ObjectId(), "strawberry juice", 4.25, 3, new Date(),e);
+//        itemService.save(temp);
 
 //        System.out.println(itemService.getItems());
 //        System.out.println(billingLogService.getBillingLogs());
@@ -124,4 +130,5 @@ public class InventoryManagementApplication implements CommandLineRunner {
 //
 //        System.out.println(availableToBuyRepository.findByName("banana"));
     }
+
 }

@@ -1,5 +1,6 @@
 package com.application.inventorymanagement.service;
 
+import com.application.inventorymanagement.InventoryManagementApplication;
 import com.application.inventorymanagement.controller.ItemController;
 import com.application.inventorymanagement.entity.*;
 import com.application.inventorymanagement.repository.AvailableToBuyRepository;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import com.application.inventorymanagement.InventoryManagementApplication.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +49,7 @@ public class AvailableToBuyService {
 //            totalPrice += billingItem.getPrice();
 //            totalQuantity += billingItem.getQuantity();
 //        }
-//        new BillingLog(wholesalePurchase.getOrderDate(), totalQuantity, totalPrice, billingItemArraylist;
+//        (new BillingLog(wholesalePurchase.getOrderDate(), totalQuantity, totalPrice, billingItemArraylist));
 //
 //    }
 

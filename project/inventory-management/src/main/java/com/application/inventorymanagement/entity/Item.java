@@ -110,11 +110,13 @@ public class Item {
         boolean expExists = false;
         int tempIter = 0;
         Expiration temp;
-        while(!expExists){
+        while(!expExists && tempIter < expiration.size()){
             temp = expiration.get(tempIter);
             if(e.getExpiry_date().equals(temp.expiry_date)){
                 expExists = true;
-            }
+
+            }else
+                tempIter += 1;
         }
 //        temp = expiration.get(tempIter);
         if(expExists){
