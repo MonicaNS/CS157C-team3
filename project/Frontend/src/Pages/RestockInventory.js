@@ -90,7 +90,17 @@ export default function RestockInventory() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        let finalData = []
+        finalData["order_date"] = new Date()
+        finalData["items"] = availabilityData
+        const urlToSendData = "http://localhost:8094/wholesale/getAll"
+        fetch(urlToSendData, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(finalData)
+        })    
     }
+
     const updateData = (newValue,rowIndex) => {
         let newObject = {}
         let newData = availabilityData
@@ -110,7 +120,7 @@ export default function RestockInventory() {
                 <MaterialTable
                 options={{
                     paging:true,
-                    pageSize:9,
+                    pageSize:10,
                     searchAutoFocus: true
                 }}
                 icons={tableIcons}
