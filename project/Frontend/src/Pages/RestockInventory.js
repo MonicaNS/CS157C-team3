@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState, useEffect } from 'react'
 import MaterialTable from "material-table";
 
 import AddBox from '@material-ui/icons/AddBox';
@@ -38,22 +38,98 @@ const tableIcons = {
   };
 
 export default function RestockInventory() { 
+    const [dataFromDB, setDataFromDB] = useState([])
+    const [availabilityData, setAvailabilityData] = useState([])
+
+    const dummyData = [
+        {
+            name: "banana",
+            price: 34.4,
+            expiry_date: "2017-08-2021"
+        },
+        {
+            name: "banana",
+            price: 34.4,
+            expiry_date: "2017-08-2021"
+        },
+        {
+            name: "banana",
+            price: 34.4,
+            expiry_date: "2017-08-2021"
+        },
+        {
+            name: "banana",
+            price: 34.4,
+            expiry_date: "2017-08-2021"
+        },
+        {
+            name: "banana",
+            price: 34.4,
+            expiry_date: "2017-08-2021"
+        }
+    ]
+
+    useEffect(()=> {
+        const urlToFetchData = "http://localhost:8094/wholesale/getAll"
+        fetch(urlToFetchData)
+        .then(res => res.json())
+        .then(data => {
+            setDataFromDB(data)
+        })
+        setDataFromDB(dummyData)
+    },[])
+
+    useEffect(()=> {
+        const tempData = dataFromDB
+        {tempData.map((object,i)=> {
+            object.quantity = 0
+            object.index = i + 1
+        })}
+        setAvailabilityData(tempData)
+    },[dataFromDB])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        let finalData = []
+        finalData["order_date"] = new Date()
+        finalData["items"] = availabilityData
+        const urlToSendData = "http://localhost:8094/wholesale/getAll"
+        fetch(urlToSendData, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(finalData)
+        })    
+    }
+
+    const updateData = (newValue,rowIndex) => {
+        let newObject = {}
+        let newData = availabilityData
+        availabilityData.map(object => {
+            if(object.index === rowIndex){
+                newObject = object
+            }
+        })
+        newObject.quantity = parseFloat(newValue)
+        newData[rowIndex] = newObject
+        setAvailabilityData(newData)
+    }
+
     return(
         <div className="restock-inventory"> 
             <div style={{ maxWidth: "900%",marginLeft:"2em",marginRight:"1em", paddingTop:"2em"}}>
                 <MaterialTable
                 options={{
                     paging:true,
-                    pageSize:9,
+                    pageSize:10,
                     searchAutoFocus: true
                 }}
                 icons={tableIcons}
                 cellEditable={{
                     cellStyle: {},
-                    onCellEditApproved: (newValue, rowData) => {
+                    onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
                         return new Promise((resolve, reject) => {
                             setTimeout(resolve, 1000);
-                            rowData.quantity = newValue;
+                            updateData(newValue,rowData.index)
                         });
                     }
                 }}
@@ -61,78 +137,14 @@ export default function RestockInventory() {
                 { title: "No.", field: "index", type:"string", editable:"never"},
                 { title: "Name", field: "name", type:"string", editable:"never"},
                 { title: "Price", field: "price", editable:"never"},
-                { title: "Expiry Date", field: "exp_date", type: "string",editable:"never" },
+                { title: "Expiry Date", field: "expiry_date", type: "string",editable:"never" },
                 { title: "Quantity", field: "quantity"},
                 ]}
-                data={[
-                {
-                    index: "1",
-                    name: "Banana",
-                    price: 34.6,
-                    exp_date: "2021-05-07",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-
-                ]}
+                data={availabilityData}
                 title="Buy Items"
                 />
         </div>
+        <button onClick={e=>handleSubmit(e)}>Submit</button>
       </div>
     )
 }
