@@ -45,27 +45,27 @@ export default function RestockInventory() {
         {
             name: "banana",
             price: 34.4,
-            expiry_data: "2017-08-2021"
+            expiry_date: "2017-08-2021"
         },
         {
             name: "banana",
             price: 34.4,
-            expiry_data: "2017-08-2021"
+            expiry_date: "2017-08-2021"
         },
         {
             name: "banana",
             price: 34.4,
-            expiry_data: "2017-08-2021"
+            expiry_date: "2017-08-2021"
         },
         {
             name: "banana",
             price: 34.4,
-            expiry_data: "2017-08-2021"
+            expiry_date: "2017-08-2021"
         },
         {
             name: "banana",
             price: 34.4,
-            expiry_data: "2017-08-2021"
+            expiry_date: "2017-08-2021"
         }
     ]
     // Fetch Data from the API 
@@ -83,10 +83,26 @@ export default function RestockInventory() {
         const tempData = dataFromDB
         {tempData.map((object,i)=> {
             object.quantity = 0
-            object.index = i
+            object.index = i + 1
         })}
         setAvailabilityData(tempData)
     },[dataFromDB])
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+    }
+    const updateData = (newValue,rowIndex) => {
+        let newObject = {}
+        let newData = availabilityData
+        availabilityData.map(object => {
+            if(object.index === rowIndex){
+                newObject = object
+            }
+        })
+        newObject.quantity = parseFloat(newValue)
+        newData[rowIndex] = newObject
+        setAvailabilityData(newData)
+    }
 
     return(
         <div className="restock-inventory"> 
@@ -100,10 +116,15 @@ export default function RestockInventory() {
                 icons={tableIcons}
                 cellEditable={{
                     cellStyle: {},
-                    onCellEditApproved: (newValue, rowData) => {
+                    onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
                         return new Promise((resolve, reject) => {
                             setTimeout(resolve, 1000);
-                            rowData.quantity = newValue;
+                            // let newData = availabilityData
+                            updateData(newValue,rowData.index)
+                            
+                            // object.quantity = newValue
+                            // newData[index] = object
+                            // setAvailabilityData(newData)
                         });
                     }
                 }}
@@ -111,13 +132,14 @@ export default function RestockInventory() {
                 { title: "No.", field: "index", type:"string", editable:"never"},
                 { title: "Name", field: "name", type:"string", editable:"never"},
                 { title: "Price", field: "price", editable:"never"},
-                { title: "Expiry Date", field: "exp_date", type: "string",editable:"never" },
+                { title: "Expiry Date", field: "expiry_date", type: "string",editable:"never" },
                 { title: "Quantity", field: "quantity"},
                 ]}
                 data={availabilityData}
                 title="Buy Items"
                 />
         </div>
+        <button onClick={e=>handleSubmit(e)}>Submit</button>
       </div>
     )
 }
