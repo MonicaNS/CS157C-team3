@@ -145,7 +145,7 @@ export default function RestockInventory() {
                 <MaterialTable
                 options={{
                     paging:true,
-                    pageSize:10,
+                    pageSize:6,
                     searchAutoFocus: true
                 }}
                 icons={tableIcons}
@@ -169,7 +169,7 @@ export default function RestockInventory() {
                 title="Buy Items"
                 />
         </div>
-        <button onClick={e=>handleSubmit(e)}>Submit</button>
+        <button onClick={e=>handleSubmit(e)} className="submit">Submit</button>
       </div>
     )
 }
