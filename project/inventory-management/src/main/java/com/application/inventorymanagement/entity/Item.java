@@ -85,7 +85,7 @@ public class Item {
     public int calculateQuantity(){
         int temp = 0;
         for(Expiration e : expiration){
-            temp += e.quantity;
+            temp += e.getQuantity();
         }
         this.total_quantity = temp;
         return total_quantity;
@@ -95,8 +95,8 @@ public class Item {
         int removedQuantity = 0;
         List<Expiration> expirations = new ArrayList<Expiration>();
         for(Expiration e : expiration){
-            if(e.expiry_date.before(new Date())){
-                removedQuantity += e.quantity;
+            if(e.getExpiry_date().before(new Date())){
+                removedQuantity += e.getQuantity();
             }else{                  //adds expiration dates that are after today's date
                 expirations.add(e);
             }
@@ -112,7 +112,7 @@ public class Item {
         Expiration temp;
         while(!expExists && tempIter < expiration.size()){
             temp = expiration.get(tempIter);
-            if(e.getExpiry_date().equals(temp.expiry_date)){
+            if(e.getExpiry_date().equals(temp.getExpiry_date())){
                 expExists = true;
 
             }else
