@@ -41,6 +41,33 @@ export default function RestockInventory() {
     const [dataFromDB, setDataFromDB] = useState([])
     const [availabilityData, setAvailabilityData] = useState([])
 
+    const dummyData = [
+        {
+            name: "banana",
+            price: 34.4,
+            expiry_data: "2017-08-2021"
+        },
+        {
+            name: "banana",
+            price: 34.4,
+            expiry_data: "2017-08-2021"
+        },
+        {
+            name: "banana",
+            price: 34.4,
+            expiry_data: "2017-08-2021"
+        },
+        {
+            name: "banana",
+            price: 34.4,
+            expiry_data: "2017-08-2021"
+        },
+        {
+            name: "banana",
+            price: 34.4,
+            expiry_data: "2017-08-2021"
+        }
+    ]
     // Fetch Data from the API 
     useEffect(()=> {
         const urlToFetchData = "http://localhost:8094/wholesale/getAll"
@@ -49,11 +76,15 @@ export default function RestockInventory() {
         .then(data => {
             setDataFromDB(data)
         })
+        setDataFromDB(dummyData)
     },[])
 
     useEffect(()=> {
         const tempData = dataFromDB
-        {tempData.map(object=> object.quantity = 0)}
+        {tempData.map((object,i)=> {
+            object.quantity = 0
+            object.index = i
+        })}
         setAvailabilityData(tempData)
     },[dataFromDB])
 
