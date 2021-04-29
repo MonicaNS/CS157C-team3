@@ -139,3 +139,18 @@
   height: 95vh;
   margin-left: 15em;
 }
+
+.submit{
+  padding: 10px 10px 10px 10px;
+  margin-top: 0.5em;
+  margin-left: 22em;
+  margin-right: 0em;
+  background-color: #0559bf;
+  color: white;
+  letter-spacing: 3px;
+  font-size: 28px;
+  border: none;
+  /* border-radius: 6px; */
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+}

@@ -18,9 +18,9 @@ public class AvailableToBuy {
     @Field
     private double price;
     @Field
-    private Date expiry_date;
+    private String expiry_date;
 
-    public AvailableToBuy(ObjectId id, String name, double price, Date expiry_date) {
+    public AvailableToBuy(ObjectId id, String name, double price, String expiry_date) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -51,11 +51,11 @@ public class AvailableToBuy {
         this.price = price;
     }
 
-    public Date getExpiry_date() {
+    public String getExpiry_date() {
         return expiry_date;
     }
 
-    public void setExpiry_date(Date expiry_date) {
+    public void setExpiry_date(String expiry_date) {
         this.expiry_date = expiry_date;
     }
 

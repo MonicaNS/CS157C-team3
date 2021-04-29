@@ -74,9 +74,10 @@ export default function RestockInventory() {
         fetch(urlToFetchData)
         .then(res => res.json())
         .then(data => {
+            console.log(data)
             setDataFromDB(data)
         })
-        setDataFromDB(dummyData)
+        // setDataFromDB(dummyData)
     },[])
 
     useEffect(()=> {
@@ -91,13 +92,37 @@ export default function RestockInventory() {
     const handleSubmit = (e) => {
         e.preventDefault()
         let finalData = []
+        finalData["id"] = "1234"
         finalData["order_date"] = new Date()
-        finalData["items"] = availabilityData
-        const urlToSendData = "http://localhost:8094/wholesale/getAll"
+        finalData["wholesale_items"] = availabilityData
+        finalData["wholesale_items"].map(object => {
+            delete object.index
+        })
+        const dummyData = {
+            "_id":{
+                "$oid": "testOID1362657"
+            },
+            "order_date": "2021-04-28T19:36:23.871Z",
+            "wholesale_items": [{
+                "name": "soda",
+                "quantity": 100,
+                "price": 0.05,
+                "expiration": "2021-05-07T19:36:23.871Z"
+            },
+            {
+                "name": "wine",
+                "quantity": 100,
+                "price": 0.2,
+                "expiration": "2021-07-07T19:36:23.871Z"
+            }]
+        
+        }
+        console.log(dummyData)
+        const urlToSendData = "http://localhost:8094/wholesale/buy"
         fetch(urlToSendData, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(finalData)
+        body: JSON.stringify(dummyData)
         })    
     }
 
@@ -120,7 +145,7 @@ export default function RestockInventory() {
                 <MaterialTable
                 options={{
                     paging:true,
-                    pageSize:10,
+                    pageSize:6,
                     searchAutoFocus: true
                 }}
                 icons={tableIcons}
@@ -144,7 +169,7 @@ export default function RestockInventory() {
                 title="Buy Items"
                 />
         </div>
-        <button onClick={e=>handleSubmit(e)}>Submit</button>
+        <button onClick={e=>handleSubmit(e)} className="submit">Submit</button>
       </div>
     )
 }
