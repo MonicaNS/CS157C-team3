@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState, useEffect } from 'react'
 import MaterialTable from "material-table";
 
 import AddBox from '@material-ui/icons/AddBox';
@@ -38,6 +38,25 @@ const tableIcons = {
   };
 
 export default function RestockInventory() { 
+    const [dataFromDB, setDataFromDB] = useState([])
+    const [availabilityData, setAvailabilityData] = useState([])
+
+    // Fetch Data from the API 
+    useEffect(()=> {
+        const urlToFetchData = "http://localhost:8094/wholesale/getAll"
+        fetch(urlToFetchData)
+        .then(res => res.json())
+        .then(data => {
+            setDataFromDB(data)
+        })
+    },[])
+
+    useEffect(()=> {
+        const tempData = dataFromDB
+        {tempData.map(object=> object.quantity = 0)}
+        setAvailabilityData(tempData)
+    },[dataFromDB])
+
     return(
         <div className="restock-inventory"> 
             <div style={{ maxWidth: "900%",marginLeft:"2em",marginRight:"1em", paddingTop:"2em"}}>
@@ -64,72 +83,7 @@ export default function RestockInventory() {
                 { title: "Expiry Date", field: "exp_date", type: "string",editable:"never" },
                 { title: "Quantity", field: "quantity"},
                 ]}
-                data={[
-                {
-                    index: "1",
-                    name: "Banana",
-                    price: 34.6,
-                    exp_date: "2021-05-07",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-                {
-                    index: "2",
-                    name: "Eggs",
-                    price: 31.6,
-                    exp_date: "2021-05-09",
-                    quantity: 0,
-                },
-
-                ]}
+                data={availabilityData}
                 title="Buy Items"
                 />
         </div>
