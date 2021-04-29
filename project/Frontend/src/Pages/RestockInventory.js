@@ -68,7 +68,7 @@ export default function RestockInventory() {
             expiry_date: "2017-08-2021"
         }
     ]
-    // Fetch Data from the API 
+
     useEffect(()=> {
         const urlToFetchData = "http://localhost:8094/wholesale/getAll"
         fetch(urlToFetchData)
@@ -129,12 +129,7 @@ export default function RestockInventory() {
                     onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
                         return new Promise((resolve, reject) => {
                             setTimeout(resolve, 1000);
-                            // let newData = availabilityData
                             updateData(newValue,rowData.index)
-                            
-                            // object.quantity = newValue
-                            // newData[index] = object
-                            // setAvailabilityData(newData)
                         });
                     }
                 }}
