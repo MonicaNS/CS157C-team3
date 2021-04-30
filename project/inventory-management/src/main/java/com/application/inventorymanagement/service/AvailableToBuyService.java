@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ public class AvailableToBuyService {
         return availableToBuyRepository.findAll();
     }
 
-    public WholesalePurchase buyWholesale(WholesalePurchase wholesalePurchase){
+    public WholesalePurchase buyWholesale(WholesalePurchase wholesalePurchase) throws ParseException {
         List<WholesaleItem> wholesaleItems = wholesalePurchase.getWholesale_items();
         ArrayList<BillingItem> billingItemArraylist = new ArrayList<BillingItem>();
         ArrayList<Item> itemList = new ArrayList<Item>();

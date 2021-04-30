@@ -74,7 +74,6 @@ export default function RestockInventory() {
         fetch(urlToFetchData)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             setDataFromDB(data)
         })
         // setDataFromDB(dummyData)
@@ -115,11 +114,11 @@ export default function RestockInventory() {
                 "price": 0.2,
                 "expiration": "2021-07-07T19:36:23.871Z"
             }]
-        
         }
         console.log(dummyData)
         const urlToSendData = "http://localhost:8094/wholesale/buy"
         fetch(urlToSendData, {
+        credentials: 'include',
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dummyData)
