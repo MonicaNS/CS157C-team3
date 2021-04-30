@@ -25,6 +25,7 @@ public class AvailableToBuyController {
     }
 
     //1. Get all products
+    @CrossOrigin(origins = "http://localhost:8094")
     @GetMapping("/getAll")
     public List<AvailableToBuy> getAvailableToBuy(){
         return availableToBuyService.getAvailableToBuy();
