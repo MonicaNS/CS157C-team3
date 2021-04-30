@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.MessageHandler;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+@CrossOrigin(origins = "*")
 
 @RestController
 @RequestMapping("/wholesale")
@@ -28,8 +30,10 @@ public class AvailableToBuyController {
         return availableToBuyService.getAvailableToBuy();
     }
 
+    @CrossOrigin(origins= "*")
     @PostMapping("/buy")
-    public WholesalePurchase buyWholesale(@RequestBody WholesalePurchase wholesalePurchase){
+    public WholesalePurchase buyWholesale(@RequestBody WholesalePurchase wholesalePurchase) throws ParseException {
+        System.out.println(wholesalePurchase);
         return availableToBuyService.buyWholesale(wholesalePurchase);
     }
     /**

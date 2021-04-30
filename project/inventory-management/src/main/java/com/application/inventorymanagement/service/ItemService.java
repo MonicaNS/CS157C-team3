@@ -6,6 +6,7 @@ import com.application.inventorymanagement.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class ItemService {
     }
 
     //will upsert if item previously exists, otherwise insert
-    public Item save(Item item){
+    public Item save(Item item) throws ParseException {
         //if item previously exists, calculate the total quantity and update expiration list from new item -> old item
         if(itemRepository.existsByName(item.getName())){        //find and get the same item by name
             Item oldItem = itemRepository.findByName(item.getName()).get(0);
@@ -47,7 +48,7 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
-    public Iterable<Item> save(List<Item> items){
+    public Iterable<Item> save(List<Item> items) throws ParseException{
         List<Item> itemList = new ArrayList<Item>();
         for(Item i : items){
             itemList.add(save(i));

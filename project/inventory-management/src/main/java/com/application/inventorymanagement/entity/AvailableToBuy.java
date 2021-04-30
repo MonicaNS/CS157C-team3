@@ -4,11 +4,11 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Date;
 
 import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
-
 @Document(collection="available_to_buy")
 public class AvailableToBuy {
     @Id

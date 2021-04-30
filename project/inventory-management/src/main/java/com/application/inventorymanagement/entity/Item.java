@@ -5,6 +5,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
@@ -91,11 +94,19 @@ public class Item {
         return total_quantity;
     }
 
-    public int removeExpired(){     //returns the quantity of items thrown away
+    public Date formatDate(String date) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
+        Date finalDate = formatter.parse(date);
+        return finalDate;
+    }
+    
+    public int removeExpired() throws ParseException {     //returns the quantity of items thrown away
         int removedQuantity = 0;
         List<Expiration> expirations = new ArrayList<Expiration>();
+
         for(Expiration e : expiration){
-            if(e.getExpiry_date().before(new Date())){
+            Date expDate = formatDate(e.getExpiry_date());
+            if(expDate.before(new Date())){
                 removedQuantity += e.getQuantity();
             }else{                  //adds expiration dates that are after today's date
                 expirations.add(e);
