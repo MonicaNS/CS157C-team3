@@ -5,9 +5,6 @@ import com.application.inventorymanagement.entity.WholesalePurchase;
 import com.application.inventorymanagement.service.AvailableToBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.websocket.MessageHandler;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -26,13 +23,13 @@ public class AvailableToBuyController {
     }
 
     //1. Get all products
-    @CrossOrigin(origins = "http://localhost:3001")
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getAll")
     public List<AvailableToBuy> getAvailableToBuy(){
         return availableToBuyService.getAvailableToBuy();
     }
 
-    @CrossOrigin(origins = "http://localhost:3001",allowedHeaders = "*")
+    @CrossOrigin(origins = "http://localhost:3000",allowedHeaders = "*")
     @PostMapping("/buy")
     public WholesalePurchase buyWholesale(@RequestBody WholesalePurchase wholesalePurchase) throws ParseException {
         return availableToBuyService.buyWholesale(wholesalePurchase);

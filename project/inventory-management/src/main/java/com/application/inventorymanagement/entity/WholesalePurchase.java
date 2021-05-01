@@ -19,12 +19,6 @@ public class WholesalePurchase {
         this.wholesale_items = wholesale_items;
     }
 
-//    public WholesalePurchase(String order_date, List<WholesaleItem> wholesale_items) {
-//        this.id = new ObjectId();
-//        this.order_date = order_date;
-//        this.wholesale_items = wholesale_items;
-//    }
-
     public Date getOrder_date() {
         return order_date;
     }
