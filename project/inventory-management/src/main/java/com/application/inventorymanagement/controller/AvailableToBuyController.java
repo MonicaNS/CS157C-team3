@@ -6,6 +6,7 @@ import com.application.inventorymanagement.service.AvailableToBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.websocket.MessageHandler;
 import java.text.ParseException;
 import java.util.Date;
@@ -25,16 +26,15 @@ public class AvailableToBuyController {
     }
 
     //1. Get all products
-    @CrossOrigin(origins = "http://localhost:8094")
+    @CrossOrigin(origins = "http://localhost:3001")
     @GetMapping("/getAll")
     public List<AvailableToBuy> getAvailableToBuy(){
         return availableToBuyService.getAvailableToBuy();
     }
 
-    @CrossOrigin(origins= "*")
+    @CrossOrigin(origins = "http://localhost:3001",allowedHeaders = "*")
     @PostMapping("/buy")
     public WholesalePurchase buyWholesale(@RequestBody WholesalePurchase wholesalePurchase) throws ParseException {
-        System.out.println(wholesalePurchase);
         return availableToBuyService.buyWholesale(wholesalePurchase);
     }
     /**
@@ -42,7 +42,6 @@ public class AvailableToBuyController {
      request to buy
         asks for name, quantity, price
      */
-
     /*
     Make method that would get the information from the Available To Buy (wholesale) page.
     The information would be sent to both ItemController and BillingLogController to create Items

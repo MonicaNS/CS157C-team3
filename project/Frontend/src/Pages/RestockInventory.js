@@ -41,34 +41,6 @@ export default function RestockInventory() {
     const [dataFromDB, setDataFromDB] = useState([])
     const [availabilityData, setAvailabilityData] = useState([])
 
-    const dummyData = [
-        {
-            name: "banana",
-            price: 34.4,
-            expiry_date: "2017-08-2021"
-        },
-        {
-            name: "banana",
-            price: 34.4,
-            expiry_date: "2017-08-2021"
-        },
-        {
-            name: "banana",
-            price: 34.4,
-            expiry_date: "2017-08-2021"
-        },
-        {
-            name: "banana",
-            price: 34.4,
-            expiry_date: "2017-08-2021"
-        },
-        {
-            name: "banana",
-            price: 34.4,
-            expiry_date: "2017-08-2021"
-        }
-    ]
-
     useEffect(()=> {
         const urlToFetchData = "http://localhost:8094/wholesale/getAll"
         fetch(urlToFetchData)
@@ -98,31 +70,35 @@ export default function RestockInventory() {
             delete object.index
         })
         const dummyData = {
-            "_id":{
-                "$oid": "testOID1362657"
-            },
-            "order_date": "2021-04-28T19:36:23.871Z",
+            "order_date": new Date(),
             "wholesale_items": [{
-                "name": "soda",
+                "name": "moonUnique",
                 "quantity": 100,
                 "price": 0.05,
-                "expiration": "2021-05-07T19:36:23.871Z"
+                "expiration": new Date()
             },
             {
-                "name": "wine",
+                "name": "carrots",
                 "quantity": 100,
                 "price": 0.2,
-                "expiration": "2021-07-07T19:36:23.871Z"
+                "expiration": new Date()
             }]
         }
-        console.log(dummyData)
+
         const urlToSendData = "http://localhost:8094/wholesale/buy"
         fetch(urlToSendData, {
-        credentials: 'include',
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+            Accept: 'application/json',
+            "Content-Type": "application/json",
+            'Access-Control-Request-Method': '*',
+        },
         body: JSON.stringify(dummyData)
-        })    
+        }).then(res => {
+            console.log(res)
+        }).catch(error => {
+            console.log(error.message);
+          })
     }
 
     const updateData = (newValue,rowIndex) => {

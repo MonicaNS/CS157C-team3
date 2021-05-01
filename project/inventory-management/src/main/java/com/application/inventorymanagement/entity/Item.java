@@ -93,19 +93,13 @@ public class Item {
         this.total_quantity = temp;
         return total_quantity;
     }
-
-    public Date formatDate(String date) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
-        Date finalDate = formatter.parse(date);
-        return finalDate;
-    }
     
     public int removeExpired() throws ParseException {     //returns the quantity of items thrown away
         int removedQuantity = 0;
         List<Expiration> expirations = new ArrayList<Expiration>();
 
         for(Expiration e : expiration){
-            Date expDate = formatDate(e.getExpiry_date());
+            Date expDate =e.getExpiry_date();
             if(expDate.before(new Date())){
                 removedQuantity += e.getQuantity();
             }else{                  //adds expiration dates that are after today's date

@@ -1,4 +1,5 @@
 package com.application.inventorymanagement.entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import org.bson.types.ObjectId;
 
@@ -10,11 +11,19 @@ public class WholesalePurchase {
     private Date order_date;
     private List<WholesaleItem> wholesale_items;
 
+    public WholesalePurchase(){}
+
     public WholesalePurchase(Date order_date, List<WholesaleItem> wholesale_items) {
         this.id = new ObjectId();
         this.order_date = order_date;
         this.wholesale_items = wholesale_items;
     }
+
+//    public WholesalePurchase(String order_date, List<WholesaleItem> wholesale_items) {
+//        this.id = new ObjectId();
+//        this.order_date = order_date;
+//        this.wholesale_items = wholesale_items;
+//    }
 
     public Date getOrder_date() {
         return order_date;
