@@ -1,5 +1,6 @@
 import React, { forwardRef, useState, useEffect } from 'react'
 import MaterialTable from "material-table";
+import moment from 'moment'
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -48,7 +49,6 @@ export default function RestockInventory() {
         .then(data => {
             setDataFromDB(data)
         })
-        // setDataFromDB(dummyData)
     },[])
 
     useEffect(()=> {
@@ -56,19 +56,27 @@ export default function RestockInventory() {
         {tempData.map((object,i)=> {
             object.quantity = 0
             object.index = i + 1
+            // object.expiration = moment(moment(object.expiry_date).format()).toDate()
+            object.expiration = new Date()
         })}
         setAvailabilityData(tempData)
+        console.log("From the fb")
+        console.log(tempData)
     },[dataFromDB])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        let finalData = []
-        finalData["id"] = "1234"
+        let finalData = {}
         finalData["order_date"] = new Date()
         finalData["wholesale_items"] = availabilityData
         finalData["wholesale_items"].map(object => {
             delete object.index
+            delete object.id
+            delete object.expiry_date
         })
+        console.log("Final Data")
+        console.log(finalData)
+
         const dummyData = {
             "order_date": new Date(),
             "wholesale_items": [{
@@ -84,7 +92,8 @@ export default function RestockInventory() {
                 "expiration": new Date()
             }]
         }
-
+        console.log("Dummy Dtaa")
+        console.log(dummyData)
         const urlToSendData = "http://localhost:8094/wholesale/buy"
         fetch(urlToSendData, {
         method: "POST",
@@ -93,7 +102,7 @@ export default function RestockInventory() {
             "Content-Type": "application/json",
             'Access-Control-Request-Method': '*',
         },
-        body: JSON.stringify(dummyData)
+        body: JSON.stringify(finalData)
         }).then(res => {
             console.log(res)
         }).catch(error => {
@@ -137,7 +146,7 @@ export default function RestockInventory() {
                 { title: "No.", field: "index", type:"string", editable:"never"},
                 { title: "Name", field: "name", type:"string", editable:"never"},
                 { title: "Price", field: "price", editable:"never"},
-                { title: "Expiry Date", field: "expiry_date", type: "string",editable:"never" },
+                { title: "Expiry Date", field: "expiry_date", type: "date",editable:"never" },
                 { title: "Quantity", field: "quantity"},
                 ]}
                 data={availabilityData}
