@@ -28,7 +28,7 @@ public class ItemController {
     }
 
     @GetMapping("/exists")
-    public boolean exists(String name){
+    public boolean exists(@RequestBody String name){
         return itemService.exists(name);
     }
 
@@ -36,5 +36,11 @@ public class ItemController {
     public Item save(@RequestBody Item item) throws ParseException {
         return itemService.save(item);
     }
+
+    @GetMapping("/getByName")
+    public List<Item> getItemByName(@RequestBody String name){System.out.println(name);
+        return itemService.getItemByName(name);}
+
+
 }
 

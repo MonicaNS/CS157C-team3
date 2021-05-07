@@ -36,7 +36,10 @@ public class Item {
         this.price = price;
         this.total_quantity = total_quantity;
         this.last_modified = last_modified;
-        this.expiration = expiration;
+        if(expiration == null)
+            this.expiration = new ArrayList<Expiration>();
+        else
+            this.expiration = expiration;
     }
 
     public ObjectId getId() {
@@ -123,11 +126,11 @@ public class Item {
         boolean expExists = false;
         int tempIter = 0;
         Expiration temp;
-        while(!expExists && tempIter < expiration.size()){
+        while(!expExists && expiration != null && tempIter < expiration.size()){
             temp = expiration.get(tempIter);
             if(e.getExpiry_date().equals(temp.getExpiry_date())){
+                e.setQuantity(e.getQuantity() + temp.getQuantity());
                 expExists = true;
-
             }else
                 tempIter += 1;
         }
