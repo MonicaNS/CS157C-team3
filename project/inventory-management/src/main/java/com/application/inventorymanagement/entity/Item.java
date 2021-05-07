@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
+import static com.application.inventorymanagement.InventoryManagementApplication.strToDate;
 
 @Document(collection = "item")
 public class Item {
@@ -99,11 +100,11 @@ public class Item {
         return total_quantity;
     }
 
-    public Date strToDate(String date) throws ParseException {
-        SimpleDateFormat Date = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss");
-        Date newDate = Date.parse(date);
-        return newDate;
-    }
+//    public Date strToDate(String date) throws ParseException {
+//        SimpleDateFormat Date = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss");
+//        Date newDate = Date.parse(date);
+//        return newDate;
+//    }
     
     public int removeExpired() throws ParseException {     //returns the quantity of items thrown away
         int removedQuantity = 0;

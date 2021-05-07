@@ -19,4 +19,8 @@ public class RevenueService {
     public List<Revenue> getRevenue() {
         return revenueRepository.findAll();
     }
+
+    public Revenue save(Revenue revenue) {
+        return revenueRepository.insert(revenue);
+    }
 }

@@ -20,6 +20,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,4 +55,14 @@ public class InventoryManagementApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
     }
 
+    public static String dateToStr(Date date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss");
+        String dateStr = dateFormat.format(date);
+        return dateStr;
+    }
+    public static Date strToDate(String date) throws ParseException {
+        SimpleDateFormat Date = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss");
+        Date newDate = Date.parse(date);
+        return newDate;
+    }
 }
