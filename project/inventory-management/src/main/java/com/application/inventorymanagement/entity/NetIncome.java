@@ -5,8 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.Date;
-
 import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
 
 @Document(collection = "net_income")
@@ -20,9 +18,11 @@ public class NetIncome {
     @Field
     private double loss_expired;        //total amount of items loss expired
     @Field
-    private Date last_modified;
+    private String last_modified;
 
-    public NetIncome(ObjectId id, double gross, double loss_bought, double loss_expired, Date last_modified) {
+    public NetIncome(){}
+
+    public NetIncome(ObjectId id, double gross, double loss_bought, double loss_expired, String last_modified) {
         this.id = id;
         this.gross = gross;
         this.loss_bought = loss_bought;
@@ -62,11 +62,11 @@ public class NetIncome {
         this.loss_expired = loss_expired;
     }
 
-    public Date getLast_modified() {
+    public String getLast_modified() {
         return last_modified;
     }
 
-    public void setLast_modified(Date last_modified) {
+    public void setLast_modified(String last_modified) {
         this.last_modified = last_modified;
     }
 

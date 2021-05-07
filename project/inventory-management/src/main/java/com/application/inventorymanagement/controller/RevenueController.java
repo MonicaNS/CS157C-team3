@@ -11,9 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/revenue")
-public class
-RevenueController {
-
+public class RevenueController {
     private RevenueService revenueService;
 
     @Autowired

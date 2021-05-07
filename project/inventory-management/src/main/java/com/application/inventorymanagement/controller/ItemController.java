@@ -15,8 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/inventory")
 public class ItemController {
-
-
     private ItemService itemService;
 
     @Autowired
@@ -38,11 +36,5 @@ public class ItemController {
     public Item save(@RequestBody Item item) throws ParseException {
         return itemService.save(item);
     }
-
-//
-//    @PostMapping
-//    public void createItem(@RequestBody){
-//        if()
-//    }
 }
 

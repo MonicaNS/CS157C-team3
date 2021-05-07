@@ -30,12 +30,15 @@ public class AvailableToBuyService {
         return availableToBuyRepository.findAll();
     }
 
+    public String dateToStr(Date date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss");
+        String dateStr = dateFormat.format(date);
+        return dateStr;
+    }
+
     public WholesalePurchase buyWholesale(WholesalePurchase wholesalePurchase) throws ParseException {
-
         List<WholesaleItem> wholesaleItems = wholesalePurchase.getWholesale_items();
-
-//        ArrayList<BillingItem> billingItemArraylist = new ArrayList<BillingItem>();
-
+        ArrayList<BillingItem> billingItemArraylist = new ArrayList<BillingItem>();
         ArrayList<Item> itemList = new ArrayList<Item>();
 
 
@@ -44,24 +47,28 @@ public class AvailableToBuyService {
             List<Expiration> expirationList = new ArrayList<Expiration>();
             expirationList.add(expiration);
 
-            Item tempItem = new Item(new ObjectId(), wholesaleItem.getName(), wholesaleItem.getPrice(), wholesaleItem.getQuantity(), new Date(), expirationList);
+            Item tempItem = new Item(new ObjectId(), wholesaleItem.getName(), wholesaleItem.getPrice(), wholesaleItem.getQuantity(), dateToStr(new Date()), expirationList);
             itemList.add(tempItem);
 
             BillingItem tempBI = new BillingItem(
                     wholesaleItem.getName(),
                     wholesaleItem.getQuantity(),
                     wholesaleItem.getPrice());
+
             billingItemArraylist.add(tempBI);
         }
+
         double totalPrice = 0;
         int totalQuantity = 0;
-//        for(BillingItem billingItem : billingItemArraylist){
-//        totalPrice += billingItem.getPrice();
-//        totalQuantity += billingItem.getQuantity();
-//        }
-//        InventoryManagementApplication.billingLogService.save(new BillingLog(wholesalePurchase.getId(), wholesalePurchase.getOrder_date(), 0, 0, billingItemArraylist));
+
+        for(BillingItem billingItem : billingItemArraylist){
+            totalPrice += billingItem.getPrice();
+            totalQuantity += billingItem.getQuantity();
+        }
+
+        InventoryManagementApplication.billingLogService.save(new BillingLog(wholesalePurchase.getId(), wholesalePurchase.getOrder_date(), 0, 0, billingItemArraylist));
         InventoryManagementApplication.itemService.save(itemList);
         return wholesalePurchase;
-        }
     }
+}
 

@@ -14,7 +14,7 @@ public class Revenue {
     @Id
     private ObjectId id;
     @Field
-    private Date date;      //date bought
+    private String date;      //date bought
     @Field
     private int item_count;
     @Field
@@ -24,7 +24,9 @@ public class Revenue {
     @Field
     private List<RevenueItem> item_list;
 
-    public Revenue(ObjectId id, Date date, int item_count, double total_cost, RevenueType doc_type, List<RevenueItem> item_list) {
+    public Revenue(){}
+
+    public Revenue(ObjectId id, String date, int item_count, double total_cost, RevenueType doc_type, List<RevenueItem> item_list) {
         this.id = id;
         this.date = date;
         this.item_count = item_count;
@@ -41,11 +43,11 @@ public class Revenue {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

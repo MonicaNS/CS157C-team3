@@ -16,7 +16,7 @@ public class BillingLog {
     @Id
     private ObjectId id;
     @Field
-    private Date order_date;
+    private String order_date;
     @Field
     private int total_quantity;
     @Field
@@ -24,8 +24,9 @@ public class BillingLog {
     @Field
     private List<BillingItem> order_list;
 
+    public BillingLog(){}
 
-    public BillingLog(ObjectId id, Date order_date, int total_quantity, double total_cost, List<BillingItem> order_list) {
+    public BillingLog(ObjectId id, String order_date, int total_quantity, double total_cost, List<BillingItem> order_list) {
         this.id = id;
         this.order_date = order_date;
         this.total_quantity = total_quantity;
@@ -41,11 +42,11 @@ public class BillingLog {
         this.id = id;
     }
 
-    public Date getOrder_date() {
+    public String getOrder_date() {
         return order_date;
     }
 
-    public void setOrder_date(Date order_date) {
+    public void setOrder_date(String order_date) {
         this.order_date = order_date;
     }
 

@@ -24,11 +24,13 @@ public class Item {
     @Field
     private int total_quantity;
     @Field
-    private Date last_modified;
+    private String last_modified;
     @Field
     private List<Expiration> expiration;
 
-    public Item(ObjectId id, String name, double price, int total_quantity, Date last_modified, List<Expiration> expiration) {
+    public Item(){}
+
+    public Item(ObjectId id, String name, double price, int total_quantity, String last_modified, List<Expiration> expiration) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -69,11 +71,11 @@ public class Item {
         this.total_quantity = total_quantity;
     }
 
-    public Date getLast_modified() {
+    public String getLast_modified() {
         return last_modified;
     }
 
-    public void setLast_modified(Date last_modified) {
+    public void setLast_modified(String last_modified) {
         this.last_modified = last_modified;
     }
 
@@ -93,13 +95,19 @@ public class Item {
         this.total_quantity = temp;
         return total_quantity;
     }
+
+    public Date strToDate(String date) throws ParseException {
+        SimpleDateFormat Date = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss");
+        Date newDate = Date.parse(date);
+        return newDate;
+    }
     
     public int removeExpired() throws ParseException {     //returns the quantity of items thrown away
         int removedQuantity = 0;
         List<Expiration> expirations = new ArrayList<Expiration>();
 
         for(Expiration e : expiration){
-            Date expDate =e.getExpiry_date();
+            Date expDate = strToDate(e.getExpiry_date());
             if(expDate.before(new Date())){
                 removedQuantity += e.getQuantity();
             }else{                  //adds expiration dates that are after today's date

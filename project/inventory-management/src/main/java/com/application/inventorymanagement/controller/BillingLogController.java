@@ -14,8 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/billinglog")
 public class BillingLogController {
-
-
     private BillingLogService billingLogService;
 
     @Autowired
@@ -30,7 +28,6 @@ public class BillingLogController {
 
     //2. we receive the billing log order from available to buy
     //will write to billing log collection
-
     @PostMapping("/save")
     public BillingLog saveBillingLog(@RequestBody BillingLog billingLog){
         return billingLogService.save(billingLog);

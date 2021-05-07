@@ -15,6 +15,8 @@ public class BillingItem {
     @Field
     private double price;
 
+    public BillingItem(){}
+
     public BillingItem(String name, int quantity, double price) {
         this.name = name;
         this.quantity = quantity;

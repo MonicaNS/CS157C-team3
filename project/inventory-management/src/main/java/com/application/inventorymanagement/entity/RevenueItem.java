@@ -16,13 +16,15 @@ public class RevenueItem {
     @Field
     private String item_name;
     @Field
-    private Date expiration;
+    private String expiration;
     @Field
     private int quantity;
     @Field
     private double price;
 
-    public RevenueItem(ObjectId item_id, String item_name, Date expiration, int quantity, double price) {
+    public RevenueItem(){}
+
+    public RevenueItem(ObjectId item_id, String item_name, String expiration, int quantity, double price) {
         this.item_id = item_id;
         this.item_name = item_name;
         this.expiration = expiration;
@@ -46,11 +48,11 @@ public class RevenueItem {
         this.item_name = item_name;
     }
 
-    public Date getExpiration() {
+    public String getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(Date expiration) {
+    public void setExpiration(String expiration) {
         this.expiration = expiration;
     }
 

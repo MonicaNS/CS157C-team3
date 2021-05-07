@@ -6,11 +6,11 @@ public class WholesaleItem {
     private String name;
     private int quantity;
     private double price;
-    private Date expiration;
+    private String expiration;
 
     public WholesaleItem(){}
 
-    public WholesaleItem(String name, int quantity, double price, Date expiration) {
+    public WholesaleItem(String name, int quantity, double price, String expiration) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
@@ -41,11 +41,11 @@ public class WholesaleItem {
         this.price = price;
     }
 
-    public Date getExpiration() {
+    public String getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(Date expiration) {
+    public void setExpiration(String expiration) {
         this.expiration = expiration;
     }
 
