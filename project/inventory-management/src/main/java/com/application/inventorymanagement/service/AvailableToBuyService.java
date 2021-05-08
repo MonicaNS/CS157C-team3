@@ -28,15 +28,11 @@ public class AvailableToBuyService {
         this.availableToBuyRepository = availableToBuyRepository;
     }
 
+    public AvailableToBuy getAvailableToBuyByName(String name){ return availableToBuyRepository.findByName(name);}
     public List<AvailableToBuy> getAvailableToBuy(){
         return availableToBuyRepository.findAll();
     }
 
-//    public String dateToStr(Date date){
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss");
-//        String dateStr = dateFormat.format(date);
-//        return dateStr;
-//    }
 
     /*
     Logs a wholesale purchase into both Item and Billing Log collections

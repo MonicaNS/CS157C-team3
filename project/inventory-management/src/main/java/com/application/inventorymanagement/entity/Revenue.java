@@ -83,6 +83,23 @@ public class Revenue {
         this.item_list = item_list;
     }
 
+    public double calculateTotalCost() {
+        double tempTotalCost = 0;
+        for(RevenueItem ri : item_list){
+            tempTotalCost += ( ri.getPrice() * ri.getQuantity() );
+        }
+        total_cost = tempTotalCost;
+        return tempTotalCost;
+    }
+
+    public int calculateQuantity(){
+        int tempTotalQuantity = 0;
+        for(RevenueItem ri : item_list){
+            tempTotalQuantity += ri.getQuantity();
+        }
+        item_count = tempTotalQuantity;
+        return tempTotalQuantity;
+    }
     @Override
     public String toString() {
         return "Revenue{" +
@@ -94,5 +111,7 @@ public class Revenue {
                 ", item_list=" + item_list +
                 '}';
     }
+
+
 }
 

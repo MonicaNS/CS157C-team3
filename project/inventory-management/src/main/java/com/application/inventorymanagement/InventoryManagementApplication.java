@@ -30,7 +30,7 @@ import java.util.List;
 @SpringBootApplication
 public class InventoryManagementApplication implements CommandLineRunner {
     public static DecimalFormat moneyFormat = new DecimalFormat("$0.00");
-    private BillingLogRepository billingLogRepository;
+
     public static ItemService itemService;
     public static BillingLogService billingLogService;
     public static AvailableToBuyService availableToBuyService;

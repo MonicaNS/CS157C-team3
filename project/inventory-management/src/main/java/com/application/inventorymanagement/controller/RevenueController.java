@@ -5,6 +5,7 @@ import com.application.inventorymanagement.service.RevenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -26,5 +27,11 @@ public class RevenueController {
     public Revenue saveRevenue(@RequestBody Revenue revenue){
         return revenueService.save(revenue);
     }
+
+    @PostMapping("/saveReceipt")
+    public Revenue saveReceipt(@RequestBody Revenue revenue) throws ParseException {return revenueService.saveReceipt(revenue);}
+
+    @GetMapping("/removeExpired")
+    public Revenue removeExpired() throws ParseException { return revenueService.saveExpired();}
 
 }
