@@ -12,6 +12,7 @@ import static java.util.Arrays.asList;
 
 import java.lang.reflect.Array;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class mongotest {
@@ -56,50 +57,51 @@ public class mongotest {
 //        Document availableToBuy10 = new Document("name", "strawberry juice")
 //                .append("price", 0.65)
 //                .append("expiry_date", new Date(121, 6, 14));
-        Document availableToBuy11 = new Document("name", "bread")
-                .append("price", 0.43)
-                .append("expiry_date", new Date(121, 5, 23));
-        Document availableToBuy12 = new Document("name", "apples")
-                .append("price", 0.10)
-                .append("expiry_date", new Date(121, 6, 01));
-        Document availableToBuy13 = new Document("name", "cucumbers")
-                .append("price", 0.12)
-                .append("expiry_date", new Date(121, 5, 22));
-        Document availableToBuy14 = new Document("name", "lettuce")
-                .append("price", 0.15)
-                .append("expiry_date", new Date(121, 6, 15));
-        Document availableToBuy15 = new Document("name", "potatoes")
-                .append("price", 0.11)
-                .append("expiry_date", new Date(121, 6, 12));
-        Document availableToBuy16 = new Document("name", "beer")
-                .append("price", 0.25)
-                .append("expiry_date", null);
-        Document availableToBuy17 = new Document("name", "tortillas")
-                .append("price", 0.28)
-                .append("expiry_date", new Date(121, 6, 01));
-        Document availableToBuy18 = new Document("name", "sour cream")
+//        Document availableToBuy11 = new Document("name", "bread")
+//                .append("price", 0.43)
+//                .append("expiry_date", new Date(121, 5, 23));
+//        Document availableToBuy12 = new Document("name", "apples")
+//                .append("price", 0.10)
+//                .append("expiry_date", new Date(121, 6, 01));
+//        Document availableToBuy13 = new Document("name", "cucumbers")
+//                .append("price", 0.12)
+//                .append("expiry_date", new Date(121, 5, 22));
+//        Document availableToBuy14 = new Document("name", "lettuce")
+//                .append("price", 0.15)
+//                .append("expiry_date", new Date(121, 6, 15));
+//        Document availableToBuy15 = new Document("name", "potatoes")
+//                .append("price", 0.11)
+//                .append("expiry_date", new Date(121, 6, 12));
+//        Document availableToBuy16 = new Document("name", "beer")
+//                .append("price", 0.25)
+//                .append("expiry_date", null);
+//        Document availableToBuy17 = new Document("name", "tortillas")
+//                .append("price", 0.28)
+//                .append("expiry_date", new Date(121, 6, 01));
+//        Document availableToBuy18 = new Document("name", "sour cream")
+//                .append("price", 0.49)
+//                .append("expiry_date", new Date(121, 6, 13));
+//        Document availableToBuy19 = new Document("name", "cream cheese")
+//                .append("price", 0.27)
+//                .append("expiry_date", new Date(121, 5, 24));
+//        Document availableToBuy20 = new Document("name", "bagels")
+//                .append("price", 0.35)
+//                .append("expiry_date", new Date(121, 5, 27));
+
+        Document availableToBuy23 = new Document("name", "expired_sour cream")
                 .append("price", 0.49)
-                .append("expiry_date", new Date(121, 6, 13));
-        Document availableToBuy19 = new Document("name", "cream chase")
+                .append("expiry_date", dateToStr( new Date(121, 5, 7)));
+        Document availableToBuy22 = new Document("name", "expired_cream cheese")
                 .append("price", 0.27)
-                .append("expiry_date", new Date(121, 5, 24));
-        Document availableToBuy20 = new Document("name", "bagels")
+                .append("expiry_date", dateToStr(new Date(121, 5, 5)));
+        Document availableToBuy21 = new Document("name", "expired_bagels")
                 .append("price", 0.35)
-                .append("expiry_date", new Date(121, 5, 27));
-
-
+                .append("expiry_date", dateToStr(new Date(121, 5, 6)));
 
         List<Document> inventoryList = new ArrayList<>();
-        inventoryList.add(availableToBuy11);
-        inventoryList.add(availableToBuy12);
-        inventoryList.add(availableToBuy13);
-        inventoryList.add(availableToBuy14);
-        inventoryList.add(availableToBuy15);
-        inventoryList.add(availableToBuy16);
-        inventoryList.add(availableToBuy17);
-        inventoryList.add(availableToBuy18);
-        inventoryList.add(availableToBuy19);
-        inventoryList.add(availableToBuy20);
+        inventoryList.add(availableToBuy21);
+        inventoryList.add(availableToBuy22);
+        inventoryList.add(availableToBuy23);
         collection.insertMany(inventoryList);
 
         FindIterable<Document> iterDoc = collection.find();
@@ -222,5 +224,10 @@ public class mongotest {
 //        while(it.hasNext()){
 //            System.out.println(it.next());
 //        }
+    }
+    public static String dateToStr(Date date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss");
+        String dateStr = dateFormat.format(date);
+        return dateStr;
     }
 }

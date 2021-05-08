@@ -16,6 +16,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static com.application.inventorymanagement.InventoryManagementApplication.dateToStr;
+
 @Service
 public class AvailableToBuyService {
 
@@ -26,22 +28,24 @@ public class AvailableToBuyService {
         this.availableToBuyRepository = availableToBuyRepository;
     }
 
+    public AvailableToBuy getAvailableToBuyByName(String name){ return availableToBuyRepository.findByName(name);}
     public List<AvailableToBuy> getAvailableToBuy(){
         return availableToBuyRepository.findAll();
     }
 
-    public String dateToStr(Date date){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss");
-        String dateStr = dateFormat.format(date);
-        return dateStr;
-    }
 
+    /*
+    Logs a wholesale purchase into both Item and Billing Log collections
+     */
     public WholesalePurchase buyWholesale(WholesalePurchase wholesalePurchase) throws ParseException {
         List<WholesaleItem> wholesaleItems = wholesalePurchase.getWholesale_items();
         ArrayList<BillingItem> billingItemArraylist = new ArrayList<BillingItem>();
         ArrayList<Item> itemList = new ArrayList<Item>();
 
-
+        /*
+        Creates an item list to save each item as its own document
+        Creates a billinglog list that will be saved as 1 document
+         */
         for(WholesaleItem wholesaleItem : wholesaleItems) {
             Expiration expiration = new Expiration(wholesaleItem.getExpiration(), wholesaleItem.getQuantity());
             List<Expiration> expirationList = new ArrayList<Expiration>();

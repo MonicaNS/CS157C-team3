@@ -1,5 +1,6 @@
 package com.application.inventorymanagement.repository;
 
+import com.application.inventorymanagement.entity.RevenueItem;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import com.application.inventorymanagement.entity.Item;
 import org.springframework.stereotype.Component;
@@ -11,4 +12,5 @@ import java.util.List;
 public interface ItemRepository extends MongoRepository<Item, String>{
     List<Item> findByName(String name);
     boolean existsByName(String name);
+
 }

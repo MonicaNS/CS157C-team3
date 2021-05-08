@@ -74,7 +74,7 @@ public class RevenueItem {
 
     @Override
     public String toString() {
-        return "ReceiptItem{" +
+        return "RevenueItem{" +
                 "item_id=" + item_id +
                 ", item_name='" + item_name + '\'' +
                 ", expiration=" + expiration +

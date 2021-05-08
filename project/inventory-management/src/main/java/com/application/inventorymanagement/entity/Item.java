@@ -5,12 +5,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.application.inventorymanagement.InventoryManagementApplication.moneyFormat;
+import static com.application.inventorymanagement.InventoryManagementApplication.strToDate;
 
 @Document(collection = "item")
 public class Item {
@@ -36,7 +38,10 @@ public class Item {
         this.price = price;
         this.total_quantity = total_quantity;
         this.last_modified = last_modified;
-        this.expiration = expiration;
+        if(expiration == null)
+            this.expiration = new ArrayList<Expiration>();
+        else
+            this.expiration = expiration;
     }
 
     public ObjectId getId() {
@@ -87,19 +92,41 @@ public class Item {
         this.expiration = expiration;
     }
 
-    public int calculateQuantity(){
+    //if it removed, then it is true; if it did not remove it is false
+    public boolean removeEmpty(){
+        List<Expiration> tempExp = new ArrayList<>();
+        for(Expiration e : expiration){
+            if(e.getQuantity() > 0)
+                tempExp.add(e);
+        }
+        if(expiration.equals(tempExp)) return false;
+        expiration = tempExp;
+        return true;
+    }
+
+    public Expiration getExpiration(String requiredExpiration){
+        for(Expiration e : expiration){
+            if(e.getExpiry_date().equals(requiredExpiration))
+                return e;
+        }
+        throw new IllegalArgumentException("Expiration " + requiredExpiration + "does not exist in " + name);
+    }
+
+    public boolean expirationExists(String expirationToCheck){
+
+        for(Expiration e : expiration){
+            if(e.getExpiry_date().equals(expirationToCheck)) return true;
+        }
+        return false;
+    }
+
+    private int calculateQuantity(){
         int temp = 0;
         for(Expiration e : expiration){
             temp += e.getQuantity();
         }
         this.total_quantity = temp;
         return total_quantity;
-    }
-
-    public Date strToDate(String date) throws ParseException {
-        SimpleDateFormat Date = new SimpleDateFormat("E MMM dd yyyy HH:mm:ss");
-        Date newDate = Date.parse(date);
-        return newDate;
     }
     
     public int removeExpired() throws ParseException {     //returns the quantity of items thrown away
@@ -115,6 +142,7 @@ public class Item {
             }
         }
         expiration = expirations;
+        calculateQuantity();
         return removedQuantity;
     }
 
@@ -123,11 +151,11 @@ public class Item {
         boolean expExists = false;
         int tempIter = 0;
         Expiration temp;
-        while(!expExists && tempIter < expiration.size()){
+        while(!expExists && expiration != null && tempIter < expiration.size()){
             temp = expiration.get(tempIter);
             if(e.getExpiry_date().equals(temp.getExpiry_date())){
+                e.setQuantity(e.getQuantity() + temp.getQuantity());        //makes the new quantity = to old quantity + temp quantity, useful for billing log
                 expExists = true;
-
             }else
                 tempIter += 1;
         }
@@ -136,6 +164,7 @@ public class Item {
             expiration.remove(tempIter);
         }
         expiration.add(e);
+        calculateQuantity();
         return e;
     }
 

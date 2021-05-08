@@ -27,14 +27,24 @@ public class ItemController {
         return itemService.getItems();
     }
 
-    @GetMapping("/exists")
-    public boolean exists(String name){
+    @GetMapping("/exists/{name}")
+    public boolean exists(@PathVariable(name="name") String name){
         return itemService.exists(name);
     }
 
     @PostMapping("/save")
     public Item save(@RequestBody Item item) throws ParseException {
         return itemService.save(item);
+    }
+
+    @GetMapping("/getByName/{name}")
+    public List<Item> getItemByName(@PathVariable(name="name") String name){
+        return itemService.getItemByName(name);
+    }
+
+    @DeleteMapping ("/removeNullItems")
+    public void removeNullItems(){
+        itemService.removeNullItems();
     }
 }
 

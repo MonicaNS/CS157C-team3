@@ -31,4 +31,9 @@ public class AvailableToBuyController {
     public WholesalePurchase buyWholesale(@RequestBody WholesalePurchase wholesalePurchase) throws ParseException {
         return availableToBuyService.buyWholesale(wholesalePurchase);
     }
+
+    @GetMapping("/getByName/{name}")
+    public AvailableToBuy getAvailableToBuyByName(@PathVariable(name="name") String name){
+        return availableToBuyService.getAvailableToBuyByName(name);
+    }
 }
