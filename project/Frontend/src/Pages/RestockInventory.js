@@ -1,5 +1,6 @@
 import React, { forwardRef, useState, useEffect } from 'react'
 import MaterialTable from "material-table";
+import moment from 'moment';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -62,29 +63,20 @@ export default function RestockInventory() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        let finalData = []
-        finalData["id"] = "1234"
-        finalData["order_date"] = new Date()
-        finalData["wholesale_items"] = availabilityData
-        finalData["wholesale_items"].map(object => {
-            delete object.index
-        })
-        const dummyData = {
-            "order_date": new Date(),
-            "wholesale_items": [{
-                "name": "moonUnique",
-                "quantity": 100,
-                "price": 0.05,
-                "expiration": new Date()
-            },
-            {
-                "name": "carrots",
-                "quantity": 100,
-                "price": 0.2,
-                "expiration": new Date()
-            }]
-        }
-
+        let finalData = {}
+        finalData["order_date"] = "Fri May 07 2021 00:00:00 GMT-0700 (Pacific Daylight Time)"
+        finalData["wholesale_items"] = 
+            availabilityData.map(obj => {
+                return(
+                    {
+                        "name": obj.name,
+                        "quantity": obj.quantity,
+                        "price":obj.price,
+                        "expiration": obj.expiry_date
+                    } 
+                )
+            })     
+    
         const urlToSendData = "http://localhost:8094/wholesale/buy"
         fetch(urlToSendData, {
         method: "POST",
@@ -93,7 +85,7 @@ export default function RestockInventory() {
             "Content-Type": "application/json",
             'Access-Control-Request-Method': '*',
         },
-        body: JSON.stringify(dummyData)
+        body: JSON.stringify(finalData)
         }).then(res => {
             console.log(res)
         }).catch(error => {
@@ -102,15 +94,17 @@ export default function RestockInventory() {
     }
 
     const updateData = (newValue,rowIndex) => {
-        let newObject = {}
         let newData = availabilityData
-        availabilityData.map(object => {
-            if(object.index === rowIndex){
-                newObject = object
-            }
-        })
+        let newObject = {
+            "name": availabilityData[rowIndex].name,
+            "quantity": availabilityData[rowIndex].quantity,
+            "price": availabilityData[rowIndex].price,
+            "expiration": availabilityData[rowIndex].expiry_date
+        }
+        console.log(newObject)
         newObject.quantity = parseFloat(newValue)
         newData[rowIndex] = newObject
+        console.log(newData)
         setAvailabilityData(newData)
     }
 
