@@ -24,7 +24,6 @@ public class WholesaleItem {
     public void setName(String name) {
         this.name = name;
     }
-
     public int getQuantity() {
         return quantity;
     }
