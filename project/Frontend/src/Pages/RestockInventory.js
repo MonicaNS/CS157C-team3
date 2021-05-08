@@ -57,6 +57,7 @@ export default function RestockInventory() {
         {tempData.map((object,i)=> {
             object.quantity = 0
             object.index = i + 1
+            delete object.id
         })}
         setAvailabilityData(tempData)
     },[dataFromDB])
@@ -94,19 +95,18 @@ export default function RestockInventory() {
     }
 
     const updateData = (newValue,rowIndex) => {
-        let newData = availabilityData
-        let newObject = {
-            "name": availabilityData[rowIndex].name,
-            "quantity": availabilityData[rowIndex].quantity,
-            "price": availabilityData[rowIndex].price,
-            "expiration": availabilityData[rowIndex].expiry_date
-        }
-        console.log(newObject)
-        newObject.quantity = parseFloat(newValue)
-        newData[rowIndex] = newObject
-        console.log(newData)
+        const index = rowIndex - 1
+        let newData = [...availabilityData]
+        newData[index].quantity = newValue
         setAvailabilityData(newData)
     }
+
+
+    useEffect(()=>{
+        console.log("availabilityData")
+        console.log(availabilityData)
+    },[availabilityData])
+
 
     return(
         <div className="restock-inventory"> 
