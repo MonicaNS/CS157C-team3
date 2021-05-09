@@ -9,7 +9,7 @@ export default function Dashboard() {
          amount:"$2000"
         },
         {
-            emp_name:"Monuca",
+            emp_name:"Monica",
             date:"7 March" ,
             amount:"$100"
         },

@@ -4,7 +4,7 @@ export default function ClassCard({ code, name, emp_data}) {
     return(
         <div className="class-card">
             <div className="class-code" >{code}</div>
-            <div className="label">Peroid</div>
+            <div className="label">Period</div>
             <div className="class-details">{name}</div>
             <br/>
             <table className="recent-invoice">
