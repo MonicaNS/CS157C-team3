@@ -16,6 +16,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import { List } from '@material-ui/core';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -69,15 +70,15 @@ export default function ViewInventory() {
             expiry_date: "2017-08-2021"
         }
     ]
+    const [expiryDates, setExpiryDates] = useState([])
 
     useEffect(()=> {
-        const urlToFetchData = "http://localhost:8094/wholesale/getAll"
+        const urlToFetchData = "http://localhost:8094/inventory/getAll"
         fetch(urlToFetchData)
         .then(res => res.json())
         .then(data => {
             setDataFromDB(data)
         })
-        setDataFromDB(dummyData)
     },[])
 
     useEffect(()=> {
@@ -87,6 +88,20 @@ export default function ViewInventory() {
         })}
         setInventoryData(tempData)
     },[dataFromDB])
+
+    useEffect(()=>{
+        console.log(inventoryData)
+        let hashMap = new Map()
+        inventoryData.map((obj,i)=>{
+            let list = []
+            obj.expiration.map(exp =>{
+                let expDate = `${exp.expiry_date} : ${exp.quantity}`
+                list.push(expDate)
+            })
+            hashMap.set(obj.name,list)
+        })
+        setExpiryDates(hashMap)
+    },[inventoryData])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -101,13 +116,21 @@ export default function ViewInventory() {
         })    
     }
 
+
+    const updateData = (newValue,rowIndex) => {
+        const index = rowIndex - 1
+        let newData = [...inventoryData]
+        newData[index].price = newValue
+        setInventoryData(newData)
+    }
+
     return(
         <div className="restock-inventory"> 
             <div style={{ maxWidth: "900%",marginLeft:"2em",marginRight:"1em", paddingTop:"2em"}}>
                 <MaterialTable
                 options={{
                     paging:true,
-                    pageSize:10,
+                    pageSize:9,
                     searchAutoFocus: true
                 }}
                 icons={tableIcons}
@@ -116,7 +139,7 @@ export default function ViewInventory() {
                     onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
                         return new Promise((resolve, reject) => {
                             setTimeout(resolve, 1000);
-                            // updateData(newValue,rowData.index)
+                            updateData(newValue,rowData.index)
                         });
                     }
                 }}
@@ -126,12 +149,38 @@ export default function ViewInventory() {
                 { title: "Price", field: "price", editable:"never"},
                 { title: "Expiry Date", field: "expiry_date", type: "string",editable:"never" },
                 { title: "Quantity", field: "quantity"},
+                { title: "Price", field: "price", editable:"always"},
                 ]}
                 data={inventoryData}
                 title="Buy Items"
+                detailPanel={rowData => {
+                    return (
+                        <div
+                            style={{
+                            marginLeft: 80,
+                            fontSize: 16,
+                            textAlign: 'left',
+                            color: 'black',
+                            backgroundColor: 'white',
+                            }}
+                        >
+                            {expiryDates.get(rowData.name).map(obj =>{
+                                    {console.log(rowData.name)}
+                                    {console.log(obj)}
+                                    return(
+                                        <div>
+                                        {obj}
+                                    </div>
+                                    )
+                                })}
+                        </div>
+                        )
+                }}
+                onRowClick={(event, rowData, togglePanel) => togglePanel()}
                 />
         </div>
         <button onClick={e=>handleSubmit(e)}>Submit</button>
       </div>
     )
 }
+
