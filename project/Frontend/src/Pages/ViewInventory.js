@@ -42,34 +42,6 @@ const tableIcons = {
 export default function ViewInventory() { 
     const [dataFromDB, setDataFromDB] = useState([])
     const [inventoryData, setInventoryData] = useState([])
-
-    const dummyData = [
-        {
-            name: "banana",
-            price: 34.4,
-            expiry_date: "2017-08-2021"
-        },
-        {
-            name: "banana",
-            price: 34.4,
-            expiry_date: "2017-08-2021"
-        },
-        {
-            name: "banana",
-            price: 34.4,
-            expiry_date: "2017-08-2021"
-        },
-        {
-            name: "banana",
-            price: 34.4,
-            expiry_date: "2017-08-2021"
-        },
-        {
-            name: "banana",
-            price: 34.4,
-            expiry_date: "2017-08-2021"
-        }
-    ]
     const [expiryDates, setExpiryDates] = useState([])
 
     useEffect(()=> {
@@ -146,9 +118,6 @@ export default function ViewInventory() {
                 columns={[
                 { title: "No.", field: "index", type:"string", editable:"never"},
                 { title: "Name", field: "name", type:"string", editable:"never"},
-                { title: "Price", field: "price", editable:"never"},
-                { title: "Expiry Date", field: "expiry_date", type: "string",editable:"never" },
-                { title: "Quantity", field: "quantity"},
                 { title: "Price", field: "price", editable:"always"},
                 ]}
                 data={inventoryData}
