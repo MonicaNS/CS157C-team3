@@ -114,47 +114,52 @@ public class RevenueService {
         return revenueRepository.save(revenue);
     }
 
-        public void getStatistics()  {
-            Map<String, double[]> totalAmountSold = new HashMap<>();
-            Map<String, double[]> netItemizedRevenue = new HashMap<>();
+    public List<Stats> getBarGraphStatistics() {
+        Map<String, double[]> totalAmountSold = new HashMap<>();
+        Map<String, double[]> netItemizedRevenue = new HashMap<>();
+        List<Stats> finalData = new ArrayList<>();
+        List<Revenue> receipts = this.getRevenue();
 
-            List<Revenue> receipts = this.getRevenue();
-
-            // Itemized profit/Loss
-            for(int i=0;i<receipts.size();i++){
-                List<RevenueItem> itemList = receipts.get(i).getItem_list();
-                for(int j=0;j<itemList.size();j++){
-                    double[] data = new double[2];
-                    String itemName = itemList.get(j).getItem_name();
-                    double itemPrice = itemList.get(j).getPrice();
-                    double itemQuantity = itemList.get(j).getQuantity();
-                    data[0] = itemPrice;
-                    data[1] = itemQuantity;
-                    if(totalAmountSold.containsKey(itemName)){
-                        double[] existingData = totalAmountSold.get(itemName);
-                        existingData[0] += data[0];
-                        existingData[1] += data[1];
-                        totalAmountSold.put(itemName,existingData);
-                    }else{
-                        totalAmountSold.put(itemName,data);
-                    }
+        // Itemized profit/Loss
+        for (int i = 0; i < receipts.size(); i++) {
+            RevenueType docType = receipts.get(i).getDoc_type();
+            List<RevenueItem> itemList = receipts.get(i).getItem_list();
+            for (int j = 0; j < itemList.size(); j++) {
+                double[] data = new double[2];
+                String itemName = itemList.get(j).getItem_name();
+                double itemPrice = itemList.get(j).getPrice();
+                double itemQuantity = itemList.get(j).getQuantity();
+                data[1] = itemQuantity;
+                data[0] = docType.equals(RevenueType.RECEIPT) ? itemPrice * itemQuantity : -itemPrice * itemQuantity;
+                if (totalAmountSold.containsKey(itemName)) {
+                    double[] existingData = totalAmountSold.get(itemName);
+                    existingData[0] += data[0];
+                    existingData[1] += data[1];
+                    totalAmountSold.put(itemName, existingData);
+                } else {
+                    totalAmountSold.put(itemName, data);
                 }
             }
-
-            for (String key : totalAmountSold.keySet()) {
-                AvailableToBuy listedData =  availableToBuyService.getAvailableToBuyByName(key);
-                double priceBoughtAt = listedData.getPrice();
-                double[] soldData = totalAmountSold.get(key);
-                double soldPrice = soldData[0];
-                double soldQuantity = soldData[1];
-                double amountSpent = soldQuantity*priceBoughtAt;
-                double net = soldPrice - amountSpent;
-                double[] stats = new double[2];
-                stats[0] = soldPrice;
-                stats[1] = amountSpent;
-                netItemizedRevenue.put(key,stats);
-            }
-
         }
 
+        for (String key : totalAmountSold.keySet()) {
+            AvailableToBuy listedData = availableToBuyService.getAvailableToBuyByName(key);
+            double priceBoughtAt = listedData.getPrice();
+            double[] soldData = totalAmountSold.get(key);
+            double soldPrice = soldData[0];
+            double soldQuantity = soldData[1];
+            double amountSpent = soldQuantity * priceBoughtAt;
+            double net = soldPrice - amountSpent;
+            double[] stats = new double[2];
+            stats[0] = soldPrice;
+            stats[1] = amountSpent;
+            netItemizedRevenue.put(key, stats);
+        }
+
+        for (String key : netItemizedRevenue.keySet()) {
+            Stats s = new Stats(key, netItemizedRevenue.get(key));
+            finalData.add(s);
+        }
+        return finalData;
+    }
     }
