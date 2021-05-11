@@ -1,48 +1,42 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import LineChart from '../Components/statisticsChart'
+import BarChart from '../Components/BarChart'
 
 export default function Statistics(){  
-    const dataset= 
-            [
-                {
-                    productSoldDay: 5,
-                    productBoughtDay: 10 
-                },
 
-                {
-                    productSoldDay: 5,
-                    productBoughtDay: 10 
-                },
+    const[newDataSet, setNewDataSet] = useState([])
+    const[finalDataSet, setFinalDataSet] = useState([])
 
-                {
-                    productSoldDay: 5,
-                    productBoughtDay: 10 
-                },
+    useEffect(()=> {
+        const urlToFetchData = "http://localhost:8094/revenue/barGraph"
+        fetch(urlToFetchData)
+        .then(res => res.json())
+        .then(data => {
+            setNewDataSet(data)
+        })
+    },[])
 
-                // {
-                //     productSoldDay: 5,              
-                //     productBoughtDay: 10 
-                // },
-
-                // {   
-                //     productSoldDay: 5,
-                //     productBoughtDay: 10 
-                // },
-
-                // {
-                //     productSoldDay: 5,
-                //     productBoughtDay: 10
-                // },
-
-                // {
-                //     productSoldDay: 5,
-                //     productBoughtDay: 10 
-                // },
-            ]
+    useEffect(()=> {
+        const finalArray = []
+        newDataSet.map(object => {
+            const itemName = object.itemName
+            const data = object.data
+            const profit = data[0]
+            const expense = data[1]
+            const item = {
+                itemName: itemName,
+                profit: profit,
+                expense: expense
+            }
+            finalArray.push(item)
+        })
+        setFinalDataSet(finalArray)
+        
+    },[newDataSet])
 
     return(
         <div className="Statistics">
-         <LineChart dataset ={dataset} style={{"marginLeft":"800px"}}/>          
+         <BarChart finalDataSet = {finalDataSet} style = {{"width":"300px"}}/>                            
         </div>
     
     )

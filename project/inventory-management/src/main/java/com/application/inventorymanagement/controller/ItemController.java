@@ -42,9 +42,14 @@ public class ItemController {
         return itemService.getItemByName(name);
     }
 
+    @PutMapping("getPrice/{name}/{price}")
+    public List<Item> updatePrice(@RequestBody List<Item> i, @PathVariable("name") String name,
+                                  @PathVariable("price") Double price){
+        return itemService.updatePrice(name, price);
+    }
+
     @DeleteMapping ("/removeNullItems")
     public void removeNullItems(){
         itemService.removeNullItems();
     }
 }
-

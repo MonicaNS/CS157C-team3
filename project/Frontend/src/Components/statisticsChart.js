@@ -14,13 +14,7 @@ export default function LineChart({dataset}){
                     [1, dataset[0].productSoldDay, dataset[0].productBoughtDay],
                     [2, dataset[1].productSoldDay, dataset[1].productBoughtDay],
                     [3, dataset[2].productSoldDay, dataset[2].productBoughtDay]
-                    // dataset.map((data,i) => {
-                    //     {console.log([i+1, data.productSoldDay, data.productBoughtDay])}
-                    //     const d =  [i+1, data.productSoldDay, data.productBoughtDay]
-                    //     return(
-                    //         `${d}, \n`
-                    //     )
-                    // })
+
                 ]}
             
             options = {{

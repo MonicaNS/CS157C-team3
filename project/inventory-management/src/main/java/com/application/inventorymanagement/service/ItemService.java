@@ -35,10 +35,6 @@ public class ItemService {
         return itemRepository.existsByName(name);
     }
 
-//    public boolean exists(RevenueItem ri){
-//        return  itemRepository.existsByRevenueItem(ri);
-//    }
-
     //will upsert if item previously exists, otherwise save
     public Item save(Item item) throws ParseException {
         //if item previously exists, calculate the total quantity and update expiration list from new item -> old item
@@ -52,6 +48,15 @@ public class ItemService {
         }
         item.setLast_modified(dateToStr(new Date()));
         return itemRepository.save(item);
+    }
+
+    public List <Item> updatePrice(String name, Double price){
+        List<Item> iList = itemRepository.findByName(name);
+        for(Item i: iList){
+            i.setPrice(price);
+            itemRepository.save(i);
+        }
+        return iList;
     }
 
     //will completely overwrite any existing items
