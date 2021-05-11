@@ -1,7 +1,11 @@
 import React from 'react'
 import ClassCard from '../Components/ClassCard'
 import StatsChart from '../Components/Chart'
+import { useHistory } from "react-router-dom";
+
 export default function Dashboard() {
+    const history = useHistory()
+
     const mockData = [
         {
          emp_name:"Aryan",
@@ -26,13 +30,13 @@ export default function Dashboard() {
             </div> */}
             <div className="container-1">          
             <div className="button-container">
-                <button className="box-1">
+                <button className="box-1"> 
                     Inventory
                 </button>
-                <button className="box-2">
+                <button className="box-2" >
                     Restock 
                 </button>
-                <button className="box-3">
+                <button className="box-3" >
                     Statistics 
                 </button>
             </div>

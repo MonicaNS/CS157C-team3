@@ -20,7 +20,7 @@ export default function BarChart({finalDataSet}){
     return (
         <div style={{maxWidth: "500%", marginLeft:"300px", marginRight:"100px", paddingTop:"50px"}}>
         <Chart
-        width={'1000px'}
+        width={'1350px'}
         height={'700px'}
         chartType="Bar"
         loader={<div>Loading Chart</div>}
@@ -28,8 +28,8 @@ export default function BarChart({finalDataSet}){
         options={{
             // Material design options
             chart: {
-            title: 'Weekly Net Income',
-            subtitle: 'Expenses, and Profit: May 2021',
+            title: 'Net Income',
+            subtitle: 'Expenses, and Profit: April 2021 - May 2021',
             },
         }}
         // For tests

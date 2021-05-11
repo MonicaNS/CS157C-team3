@@ -43,7 +43,7 @@ public class ItemController {
     }
 
     @PutMapping("getPrice/{name}/{price}")
-    public List<Item> updatePrice(@RequestBody List<Item> i, @PathVariable("name") String name,
+    public List<Item> updatePrice( @PathVariable("name") String name,
                                   @PathVariable("price") Double price){
         return itemService.updatePrice(name, price);
     }

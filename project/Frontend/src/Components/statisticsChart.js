@@ -2,7 +2,7 @@ import { Chart } from "react-google-charts";
 
 export default function LineChart({dataset}){
     return (
-        <div style={{maxWidth: "200%", marginLeft:"500px", marginRight:"100px", paddingTop:"80px"}}>
+        <div style={{maxWidth: "200%", marginLeft:"500px", marginRight:"100px", paddingTop:"80px", paddingRight:"100px"}}>
         <Chart
             width = {'600px'}
             height = {'400px'}

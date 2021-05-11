@@ -1,6 +1,7 @@
 import React, { forwardRef, useState, useEffect } from 'react'
 import MaterialTable from "material-table";
 import moment from 'moment';
+import { useAlert } from 'react-alert'
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -41,6 +42,7 @@ const tableIcons = {
 export default function RestockInventory() { 
     const [dataFromDB, setDataFromDB] = useState([])
     const [availabilityData, setAvailabilityData] = useState([])
+    const alert = useAlert()
 
     useEffect(()=> {
         const urlToFetchData = "http://localhost:8094/wholesale/getAll"
@@ -49,7 +51,6 @@ export default function RestockInventory() {
         .then(data => {
             setDataFromDB(data)
         })
-        // setDataFromDB(dummyData)
     },[])
 
     useEffect(()=> {
@@ -65,7 +66,7 @@ export default function RestockInventory() {
     const handleSubmit = (e) => {
         e.preventDefault()
         let finalData = {}
-        finalData["order_date"] = "Fri May 07 2021 00:00:00 GMT-0700 (Pacific Daylight Time)"
+        finalData["order_date"] = "Tuesday May 11 2021 00:00:00 GMT-0700 (Pacific Daylight Time)"
         finalData["wholesale_items"] = 
             availabilityData.map(obj => {
                 return(
@@ -92,6 +93,8 @@ export default function RestockInventory() {
         }).catch(error => {
             console.log(error.message);
           })
+
+        alert.show("Order placed Successfully")
     }
 
     const updateData = (newValue,rowIndex) => {

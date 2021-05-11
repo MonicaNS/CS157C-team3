@@ -16,7 +16,8 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import { List } from '@material-ui/core';
+import { useAlert } from 'react-alert'
+
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -43,6 +44,7 @@ export default function ViewInventory() {
     const [dataFromDB, setDataFromDB] = useState([])
     const [inventoryData, setInventoryData] = useState([])
     const [expiryDates, setExpiryDates] = useState([])
+    const alert = useAlert()
 
     useEffect(()=> {
         const urlToFetchData = "http://localhost:8094/inventory/getAll"
@@ -55,17 +57,19 @@ export default function ViewInventory() {
 
     useEffect(()=> {
         const tempData = dataFromDB
-        {tempData.map((object,i)=> {
-            object.index = i + 1
-        })}
+        tempData.map((object,i)=> {
+            return(
+               object.index = i + 1
+            )
+        })
         setInventoryData(tempData)
     },[dataFromDB])
 
     useEffect(()=>{
-        console.log(inventoryData)
         let hashMap = new Map()
-        inventoryData.map((obj,i)=>{
+        inventoryData.map(obj=>{
             let list = []
+            console.log(obj)
             obj.expiration.map(exp =>{
                 let expDate = `${exp.expiry_date} : ${exp.quantity}`
                 list.push(expDate)
@@ -75,25 +79,31 @@ export default function ViewInventory() {
         setExpiryDates(hashMap)
     },[inventoryData])
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        let finalData = []
-        finalData["order_date"] = new Date()
-        finalData["items"] = inventoryData
-        const urlToSendData = "http://localhost:8094/wholesale/getAll"
-        fetch(urlToSendData, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(finalData)
-        })    
-    }
-
 
     const updateData = (newValue,rowIndex) => {
         const index = rowIndex - 1
         let newData = [...inventoryData]
         newData[index].price = newValue
+
+        const itemName = newData[index].name
+        const urlToSendData = `http://localhost:8094/inventory/getPrice/${itemName}/${newValue}`
+
+        fetch(urlToSendData, {
+        method: "PUT",
+        headers: { 
+            Accept: 'application/json',
+            "Content-Type": "application/json",
+            'Access-Control-Request-Method': '*',
+        },
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => {
+            console.log(error.message);
+          })
+
         setInventoryData(newData)
+        alert.show("Price Updated Successfully!")
     }
 
     return(
@@ -134,8 +144,6 @@ export default function ViewInventory() {
                             }}
                         >
                             {expiryDates.get(rowData.name).map(obj =>{
-                                    {console.log(rowData.name)}
-                                    {console.log(obj)}
                                     return(
                                         <div>
                                         {obj}
@@ -145,10 +153,9 @@ export default function ViewInventory() {
                         </div>
                         )
                 }}
-                onRowClick={(event, rowData, togglePanel) => togglePanel()}
+                // onRowClick={(event, rowData, togglePanel) => togglePanel()}
                 />
         </div>
-        <button onClick={e=>handleSubmit(e)}>Submit</button>
       </div>
     )
 }
