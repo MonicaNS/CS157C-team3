@@ -36,6 +36,7 @@ public class ItemService {
     }
 
     //will upsert if item previously exists, otherwise save
+    //note that it will use the price that was defined in the olditem, instead of the new item
     public Item save(Item item) throws ParseException {
         //if item previously exists, calculate the total quantity and update expiration list from new item -> old item
         if(itemRepository.existsByName(item.getName())){        //find and get the same item by name
