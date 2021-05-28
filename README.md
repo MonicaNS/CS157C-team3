@@ -12,9 +12,9 @@ brew install maven
 - Create a cluster using MongoDB Atlas
 - Connect the cluster
 - Create a **inventory-management** database
-
+- Make sure to have the required dependencies from the inventory-management/pom.xml
 
 # Run spring-boot
 ```bash
-mvn spring-boot:run
+mvnw spring-boot:run
 
